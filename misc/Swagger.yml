@@ -1,0 +1,430 @@
+openapi: 3.0.0
+info:
+  title: Metro System Ticket Reservation API
+  version: 1.0.0
+servers:
+  - url: 'https://{hostname}/api/v1'
+    variables:
+      hostname:
+        default: 'localhost:3000'
+paths:
+  /users:
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewUser'
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /users/{id}:
+    get:
+      summary: Get a user by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: User ID
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update a user
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: User ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUser'
+      responses:
+        '200':
+          description: User updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /trips:
+    post:
+      summary: Create a new trip
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTrip'
+      responses:
+        '201':
+          description: Trip created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trip'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /trips/{id}:
+    get:
+      summary: Get a trip by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Trip ID
+      responses:
+        '200':
+          description: Trip found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Trip'
+        '404':
+          description: Trip not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /senior-requests:
+    post:
+      summary: Create a new senior request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewSeniorRequest'
+      responses:
+        '201':
+          description: Senior request created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeniorRequest'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /senior-requests/{id}:
+    get:
+      summary: Get a senior request by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Senior request ID
+      responses:
+        '200':
+          description: Senior request found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeniorRequest'
+        '404':
+          description: Senior request not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update a senior request
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Senior request ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSeniorRequest'
+      responses:
+        '200':
+          description: Senior request updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeniorRequest'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Senior request not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /refund-requests:
+    post:
+      summary: Create a new refund request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewRefundRequest'
+      responses:
+        '201':
+          description: Refund request created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefundRequest'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /refund-requests/{id}:
+    get:
+      summary: Get a refund request by ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Refund request ID
+      responses:
+        '200':
+          description: Refund request found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefundRequest'
+        '404':
+          description: Refund request not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update a refund request
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Refund request ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRefundRequest'
+      responses:
+        '200':
+          description: Refund request updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefundRequest'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Refund request not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+    NewUser:
+      type: object
+      properties:
+        email:
+          type: string
+        phone:
+          type: string
+        password:
+          type: string
+        name:
+          type: string
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        phone:
+          type: integer
+        password:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+    UpdateUser:
+      type: object
+      properties:
+        email:
+          type: string
+        phone:
+          type: integer
+        password:
+          type: string
+        name:
+          type: string
+    NewTrip:
+      type: object
+      properties:
+        userId:
+          type: string
+        startLocation:
+          type: string
+        purchasedAt:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [completed, upcoming, cancelled]
+        totalPrice:
+          type: integer
+    Trip:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        startLocation:
+          type: string
+        purchasedAt:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [completed, upcoming, cancelled]
+        totalPrice:
+          type: integer
+    NewSeniorRequest:
+      type: object
+      properties:
+        reviewerId:
+          type: string
+        status:
+          type: string
+          enum: [pending, approved, rejected]
+        idImage:
+          type: string
+    SeniorRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        reviewerId:
+          type: string
+        status:
+          type: string
+          enum: [pending, approved, rejected]
+        idImage:
+          type: string
+    UpdateSeniorRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [pending, approved, rejected]
+    NewRefundRequest:
+      type: object
+      properties:
+        tripId:
+          type: string
+        description:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [pending, approved, rejected]
+    RefundRequest:
+      type: object
+      properties:
+        id:
+          type: string
+        tripId:
+          type: string
+        description:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        status:
+          type: string
+          enum: [pending, approved, rejected]
+    UpdateRefundRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [pending, approved, rejected]

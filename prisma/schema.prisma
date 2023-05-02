@@ -4,21 +4,27 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"`
+  provider = "prisma-client-js"
 }
 
 model User {
-  id               Int             @id @default(autoincrement())
-  email            String          @unique
-  phoneNumber      String          @unique
-  password         String
-  role             UserRole
-  tickets          Ticket[]
-  senior           SeniorRequest?  @relation("seniorRequestUser")
-  virtualRides     VirtualRide[]
-  reviewedRequests SeniorRequest[] @relation("seniorRequestAdmin")
-  OTP              OTP[]
-  RefundRequest    RefundRequest[]
+  id             Int               @id @default(autoincrement())
+  email          String            @unique
+  phoneNumber    String            @unique
+  name           String
+  password       String
+  role           UserRole
+  subscription   SubscriptionType?
+  isSenior       Boolean
+  seniorRequest  SeniorRequest?
+  refundRequests RefundRequest[]
+  rides          Trip[]
+}
+
+enum SubscriptionType {
+  Monthly
+  Quarterly
+  Annual
 }
 
 enum UserRole {
@@ -27,78 +33,45 @@ enum UserRole {
   Admin
 }
 
-model OTP {
-  id        Int      @id @default(autoincrement())
-  code      String
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
-  expiresAt DateTime
-}
-
-model Station {
-  id                Int     @id @default(autoincrement())
-  name              String  @unique
-  originRoutes      Route[] @relation("origin")
-  destinationRoutes Route[] @relation("destination")
-}
-
-model Route {
-  id            Int           @id @default(autoincrement())
-  originId      Int
-  destinationId Int
-  origin        Station       @relation("origin", fields: [originId], references: [id])
-  destination   Station       @relation("destination", fields: [destinationId], references: [id])
-  price         Float
-  schedule      Schedule[]
-  VirtualRide   VirtualRide[]
-}
-
 model Schedule {
   id        Int      @id @default(autoincrement())
-  routeId   Int
-  route     Route    @relation(fields: [routeId], references: [id])
+  routeId   RouteId
   startTime DateTime
   endTime   DateTime
 }
 
-model Ticket {
-  id            Int             @id @default(autoincrement())
-  userId        Int
-  user          User            @relation(fields: [userId], references: [id])
-  routeId       Int
-  route         Route           @relation(fields: [routeId], references: [id])
-  subscription  Subscription
-  count         Int
-  passedCount   Int
-  createdAt     DateTime        @default(now())
-  RefundRequest RefundRequest[]
+model Trip {
+  id               String          @id @default(uuid())
+  userId           Int
+  user             User            @relation(fields: [userId], references: [id])
+  startLocation    String
+  purchasedAt      DateTime
+  status           RideStatus
+  totalPrice       Int
+  route            RouteId
+  RefundRequest    RefundRequest[]
+  transferStations String[]
 }
 
-enum Subscription {
-  Monthly
-  Quarterly
-  Annual
+enum RouteId {
+  one
+  two
+  three
 }
 
-model VirtualRide {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
-  routeId   Int
-  route     Route    @relation(fields: [routeId], references: [id])
-  startTime DateTime
-  endTime   DateTime
+enum RideStatus {
+  completed
+  cancelled
+  ongoing
 }
 
 model SeniorRequest {
   id         Int                 @id @default(autoincrement())
   userId     Int                 @unique
-  user       User                @relation("seniorRequestUser", fields: [userId], references: [id])
+  user       User                @relation(fields: [userId], references: [id])
   idImage    String
   status     SeniorRequestStatus
   reviewedBy Int?
-  admin      User?               @relation("seniorRequestAdmin", fields: [reviewedBy], references: [id])
   createdAt  DateTime            @default(now())
 }
 
@@ -109,14 +82,15 @@ enum SeniorRequestStatus {
 }
 
 model RefundRequest {
-  id         Int                 @id @default(autoincrement())
-  ticketId   Int
-  ticket     Ticket              @relation(fields: [ticketId], references: [id])
+  id          String              @id @default(uuid())
   description String
-  status     RefundRequestStatus
-  reviewedBy Int?
-  admin      User?               @relation(fields: [reviewedBy], references: [id])
-  createdAt  DateTime            @default(now())
+  createdAt   DateTime
+  status      RefundRequestStatus
+  reviewedBy  Int?
+  tripId      String
+  trip        Trip                @relation(fields: [tripId], references: [id])
+  User        User?               @relation(fields: [userId], references: [id])
+  userId      Int?
 }
 
 enum RefundRequestStatus {
