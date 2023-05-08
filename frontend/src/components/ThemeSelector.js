@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { MapContext } from './Map';
+import { MapContext } from './Map/Map';
 
 const ThemeSelector = () => {
   const { setMapStyle } = useContext(MapContext);

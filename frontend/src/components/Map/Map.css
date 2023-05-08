@@ -1,8 +1,13 @@
 @import "https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css";
 
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
 .map-container {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   position: absolute;
   top: 0;
   left: 0;
@@ -33,6 +38,7 @@
 
 .map-wrapper {
   position: relative;
+  height: 100%;
 }
 
 .station-popup {

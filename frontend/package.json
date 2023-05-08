@@ -16,8 +16,13 @@
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
+    "react-intersection-observer": "^9.4.3",
     "react-leaflet": "^4.2.1",
+    "react-router-dom": "^6.11.1",
     "react-scripts": "5.0.1",
+    "react-scroll": "^1.8.9",
+    "react-transition-group": "^4.4.5",
+    "styled-components": "^5.3.10",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

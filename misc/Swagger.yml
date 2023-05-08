@@ -3,10 +3,10 @@ info:
   title: Metro System Ticket Reservation API
   version: 1.0.0
 servers:
-  - url: 'https://{hostname}/api/v1'
+  - url: "https://{hostname}/api/v1"
     variables:
       hostname:
-        default: 'localhost:3000'
+        default: "localhost:3000"
 paths:
   /users:
     post:
@@ -16,20 +16,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewUser'
+              $ref: "#/components/schemas/NewUser"
       responses:
-        '201':
+        "201":
           description: User created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-        '400':
+                $ref: "#/components/schemas/User"
+        "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /users/{id}:
     get:
       summary: Get a user by ID
@@ -41,18 +41,18 @@ paths:
           required: true
           description: User ID
       responses:
-        '200':
+        "200":
           description: User found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-        '404':
+                $ref: "#/components/schemas/User"
+        "404":
           description: User not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     put:
       summary: Update a user
       parameters:
@@ -67,26 +67,26 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateUser'
+              $ref: "#/components/schemas/UpdateUser"
       responses:
-        '200':
+        "200":
           description: User updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-        '400':
+                $ref: "#/components/schemas/User"
+        "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '404':
+                $ref: "#/components/schemas/Error"
+        "404":
           description: User not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /trips:
     post:
       summary: Create a new trip
@@ -95,20 +95,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewTrip'
+              $ref: "#/components/schemas/NewTrip"
       responses:
-        '201':
+        "201":
           description: Trip created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Trip'
-        '400':
+                $ref: "#/components/schemas/Trip"
+        "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /trips/{id}:
     get:
       summary: Get a trip by ID
@@ -120,18 +120,18 @@ paths:
           required: true
           description: Trip ID
       responses:
-        '200':
+        "200":
           description: Trip found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Trip'
-        '404':
+                $ref: "#/components/schemas/Trip"
+        "404":
           description: Trip not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /senior-requests:
     post:
       summary: Create a new senior request
@@ -140,20 +140,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewSeniorRequest'
+              $ref: "#/components/schemas/NewSeniorRequest"
       responses:
-        '201':
+        "201":
           description: Senior request created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SeniorRequest'
-        '400':
+                $ref: "#/components/schemas/SeniorRequest"
+        "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /senior-requests/{id}:
     get:
       summary: Get a senior request by ID
@@ -165,18 +165,18 @@ paths:
           required: true
           description: Senior request ID
       responses:
-        '200':
+        "200":
           description: Senior request found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SeniorRequest'
-        '404':
+                $ref: "#/components/schemas/SeniorRequest"
+        "404":
           description: Senior request not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     put:
       summary: Update a senior request
       parameters:
@@ -191,26 +191,26 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateSeniorRequest'
+              $ref: "#/components/schemas/UpdateSeniorRequest"
       responses:
-        '200':
+        "200":
           description: Senior request updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SeniorRequest'
-        '400':
+                $ref: "#/components/schemas/SeniorRequest"
+        "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '404':
+                $ref: "#/components/schemas/Error"
+        "404":
           description: Senior request not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /refund-requests:
     post:
       summary: Create a new refund request
@@ -219,20 +219,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewRefundRequest'
+              $ref: "#/components/schemas/NewRefundRequest"
       responses:
-        '201':
+        "201":
           description: Refund request created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RefundRequest'
-        '400':
+                $ref: "#/components/schemas/RefundRequest"
+        "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
   /refund-requests/{id}:
     get:
       summary: Get a refund request by ID
@@ -244,18 +244,18 @@ paths:
           required: true
           description: Refund request ID
       responses:
-        '200':
+        "200":
           description: Refund request found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RefundRequest'
-        '404':
+                $ref: "#/components/schemas/RefundRequest"
+        "404":
           description: Refund request not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
     put:
       summary: Update a refund request
       parameters:
@@ -270,26 +270,60 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UpdateRefundRequest'
+              $ref: "#/components/schemas/UpdateRefundRequest"
       responses:
-        '200':
+        "200":
           description: Refund request updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RefundRequest'
-        '400':
+                $ref: "#/components/schemas/RefundRequest"
+        "400":
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
-        '404':
+                $ref: "#/components/schemas/Error"
+        "404":
           description: Refund request not found
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
+  "/route/price":
+    patch:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RouteData"
+      responses:
+        "200":
+          description: Successful response,Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RouteData"
+        "400":
+          description: Bad Request, route price is not updated
+  "/route/scheduleTime":
+    patch:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StationData"
+      responses:
+        "200":
+          description: Successful response,Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RouteData"
+        "400":
+          description: Bad Request, Route's scheduled time is not updated
 components:
   schemas:
     Error:
@@ -428,3 +462,24 @@ components:
         status:
           type: string
           enum: [pending, approved, rejected]
+    StationData:
+      properties:
+        name:
+          description: The name of the station
+          type: string
+      required:
+        - name
+    RouteData:
+      properties:
+        name:
+          description: The name of the station
+          type: string
+        price:
+          description: Price of the trip
+          type: integer
+        scheduleTime:
+          description: The scheduled time for a route
+          type: string
+      required:
+        - name
+        - price
