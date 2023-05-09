@@ -3,7 +3,7 @@
 }
 
 .hero-section {
-  background-image: url("E:\repos\Cairo-Metro-System\frontend\src\assets\logo.png");
+  background-image: url("../../assets/logo.png");
   background-size: cover;
   background-position: center;
   color: #fff;

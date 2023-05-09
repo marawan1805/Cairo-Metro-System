@@ -3,6 +3,7 @@ import { Link as ScrollLink } from "react-scroll";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import './navbar.css'
 
 const mobileBreakpoint = "768px";
 
@@ -111,28 +112,23 @@ const Navbar = () => {
         <LogoLink href="/"></LogoLink>
 
         <div className="navbar-menu">
-          <li>
-            <ScrollLink
-              className="nav-link"
-              to="services"
-              smooth={true}
-              duration={150}
-            >
-              Services
-            </ScrollLink>
+          <li >
+            <Link className="nav-link" to="services">Services</Link>
           </li>
-          <li>              
-              <Link className="nav-link" to="/map">Map</Link>
+          <li >              
+              <Link className="nav-link"  to="/map">Map</Link>
           </li>
-
-          <li className="nav-link">
-            <a href="/booking">Book a Ticket</a>
+          <li >
+            <Link className="nav-link" to="/booking">Book a Ticket</Link>
           </li>
-          <li className="nav-link">
-            <a href="/login">Login</a>
+          <li >
+            <Link className="nav-link" to="/login">Login</Link>
           </li>
-          <li className="nav-link">
-            <a href="/signup">Signup</a>
+          <li >
+            <Link className="nav-link" to="/signup">Signup</Link>
+          </li>
+          <li >
+            <Link className="nav-link" to="/account">Account</Link>
           </li>
         </div>
 
