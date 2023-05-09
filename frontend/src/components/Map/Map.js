@@ -3,6 +3,7 @@ import mapboxgl, { Popup } from "mapbox-gl";
 import "./Map.css";
 import Menu from "../Menu";
 import ThemeSelector from "../ThemeSelector";
+import Header from "../Header/Header";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoibWFyYXdhbjE4MDUiLCJhIjoiY2xoN2tlaXc2MGg4MDNlczZlNjl1cGlvbiJ9.z1IvnyHR-Uo83BIeuuIZBQ";
@@ -168,7 +169,7 @@ const Map = () => {
   return (
     <MapContext.Provider value={{ setMapStyle }}>
       <div className="map-wrapper">
-        <Menu />
+        <Header />
         <div className="map-container" ref={mapContainer} />
         <ThemeSelector />
       </div>
