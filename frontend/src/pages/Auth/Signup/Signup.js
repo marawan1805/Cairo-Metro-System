@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { createClient } from "@supabase/supabase-js";
-import { useNavigate } from "react-router-dom";
-import Navbar from '../../components/Navbar/Navbar';
+import Navbar from '../../../components/Navbar/Navbar';
 import './signup.css'
 
 function Signup() {
@@ -15,8 +14,6 @@ function Signup() {
       const SUPABASE_URL = "https://husogcjfubomhuycwuid.supabase.co";
       const SUPABASE_ANON_KEY ="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh1c29nY2pmdWJvbWh1eWN3dWlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODI4NjA5NTUsImV4cCI6MTk5ODQzNjk1NX0.1W1T3X-SeDufh9AukM-TX34U01NP870I57W--eylN6w";
       const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-      const navigate = useNavigate()
 
       const handleSignUp = async () => {
         setError(null);
@@ -75,7 +72,7 @@ function Signup() {
             <input
             className='input'
               type="text"
-              placeholder="Phone number"
+              placeholder="Phone Number"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
               required
@@ -130,12 +127,14 @@ function Signup() {
           </div>
 
       return(
-        <div className='signup-body'> 
+        <div className='metro-background'> 
+        <div className='black-tint'>
         <Navbar />
         <div className='signup-form'>
         { step === 1 && <Step1Signup/> }
         { step === 2 && <Step2Signup/> }
         { step === 3 && <Step3Signup/> }
+        </div>
         </div>
         </div>
        

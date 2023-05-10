@@ -1,0 +1,50 @@
+.account-body{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-self: center;
+    width: 80vw;
+    margin-top: 10vh;
+    font-weight: 600;
+}
+
+.detail{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px;
+}
+
+.account-details{
+    display: flex;
+    flex-direction: column;
+    border-right:2.5px solid white;
+    width: 50%;
+}
+
+.center{
+    align-self: center;
+}
+
+.account-tickets{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+
+}
+
+.bold{
+    font-weight: 900;
+}
+
+.ticket{
+    width: 90%;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    background-color: #323232;
+    border-radius: 5px;
+}
