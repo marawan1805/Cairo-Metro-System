@@ -58,7 +58,11 @@ code {
   justify-content: space-between;
   margin: 0 auto;
   padding: 0 15px;
+<<<<<<< Updated upstream
   align-items: center;
+=======
+  height: 30px;
+>>>>>>> Stashed changes
 }
 
 .navbar {
@@ -362,7 +366,17 @@ code {
 }
 
 .logo img {
+<<<<<<< Updated upstream
   width: 60px;
+=======
+  width: 130px;
+  z-index: 1000;
+  display: inline-block;
+  transition: filter 0.3s ease-in-out;
+}
+.logo img:hover {
+  filter: drop-shadow(0 0 10px rgba(23, 76, 79, 0.3));
+>>>>>>> Stashed changes
 }
 
 .primary-link {

@@ -6,43 +6,46 @@ import logo from "../assets/logo.png";
 
 const mobileBreakpoint = "7068px";
 
+
 const HamburgerIcon = styled.div`
   @media (max-width: ${mobileBreakpoint}) {
-    z-index: 20;
+    z-index: 1000;
     cursor: pointer;
     margin-left: 0;
     position: fixed;
     right: 30px;
-
-    div.profile-container {
-        display: flex;
-        flex-direction: row-reverse;
-        align-items: center;
-    }
-
+    
     div.icon-container {
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
-      width: 55px;
-      height: auto;
       padding: 8px;
+      background-color: transparent;
+    }
+
+    div.profile-container {
+      display: flex;
+      flex-direction: row; 
+      width: 75px;
+      height: 42px;
       background-color: white;
       border: 1px solid #ccc;
-      border-radius: 8px;
+      border-radius: 18px;
       transition: box-shadow 0.3s ease-in-out;
-
+      justify-content: space-between;
+      padding: 10px;
+      align-items: center;
+  
       &:hover {
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
     }
 
     div.icon-container div {
-      width: 15px;
-      height: 2px;
+      width: 13px;
+      height: 1.5px;
       background-color: black;
       transition: transform 0.3s ease-in-out;
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
 
     ${({ open }) =>
@@ -71,7 +74,7 @@ const Modal = styled.div`
   width: 300px;
   height: 300px;
   z-index: 10;
-  border-radius: 5px;
+  border-radius: 7px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
   transform: ${({ open }) => (open ? "translateX(0)" : "translateX(150%)")};
@@ -94,7 +97,7 @@ const BlurBackground = styled.div`
   height: 100%;
   backdrop-filter: ${({ open }) => (open ? "blur(3px)" : "none")};
   transition: backdrop-filter 0.3s ease-in-out;
-  z-index: 00;
+  z-index: 9;
 `;
 
 const Menu = () => {
@@ -117,16 +120,14 @@ const Menu = () => {
             <div></div>
             <div></div>
           </div>
-          <svg
-            style={{ marginLeft: "8px", height: "18px" }} // Adjust the marginLeft
+            <svg
+            style={{ color: "#717171", height: "40px", fill: "currentColor" }}
             viewBox="0 0 32 32"
           >
             <path d="m16 .7c-8.437 0-15.3 6.863-15.3 15.3s6.863 15.3 15.3 15.3 15.3-6.863 15.3-15.3-6.863-15.3-15.3-15.3zm0 28c-4.021 0-7.605-1.884-9.933-4.81a12.425 12.425 0 0 1 6.451-4.4 6.507 6.507 0 0 1 -3.018-5.49c0-3.584 2.916-6.5 6.5-6.5s6.5 2.916 6.5 6.5a6.513 6.513 0 0 1 -3.019 5.491 12.42 12.42 0 0 1 6.452 4.4c-2.328 2.925-5.912 4.809-9.933 4.809z" />
           </svg>
-        </div>
+          </div>          
       </HamburgerIcon>
-
-
       <Modal open={open}>
         <ul>
           <ScrollLink

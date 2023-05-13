@@ -59,10 +59,12 @@
   border: 1px solid #e0e0e0;
   transition: box-shadow 0.3s;
   cursor: pointer;
+  z-index: 1000;
 }
 
 .HamburgerIcon:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
 .HamburgerIcon div {
