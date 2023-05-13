@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link as ScrollLink } from "react-scroll";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import './navbar.css'
+import '../../styles.css'
 
 const mobileBreakpoint = "768px";
 
@@ -92,7 +93,7 @@ const NavMenu = styled.div`
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-
+  const [currentPathName, setCurrentPathName] = useState()
   const toggleModal = () => {
     setOpen(!open);
   };
@@ -100,12 +101,21 @@ const Navbar = () => {
   const LogoLink = ({ href, children }) => {
     return (
       <a href={href} className="logo">
-        <img src={logo} alt="logo" />
+        <img className="img" src={logo} alt="logo" />
         {children}
       </a>
     );
   };
+  
+  const location = useLocation()
 
+  useEffect(() => {
+    
+   setCurrentPathName(location.pathname)
+
+  }, [location.pathname])
+
+  
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -113,22 +123,22 @@ const Navbar = () => {
 
         <div className="navbar-menu">
           <li >
-            <Link className="nav-link" to="services">Services</Link>
+            <Link className={currentPathName === '/services' ? 'nav-link selected' : 'nav-link'} to="services">Services</Link>
           </li>
           <li >              
-              <Link className="nav-link"  to="/map">Map</Link>
+              <Link className={currentPathName === '/map' ? 'nav-link selected' : 'nav-link'}  to="/map">Map</Link>
           </li>
           <li >
-            <Link className="nav-link" to="/booking">Book a Ticket</Link>
+            <Link className={currentPathName === '/booking' ? 'nav-link selected' : 'nav-link'} to="/booking">Book a Ticket</Link>
           </li>
           <li >
-            <Link className="nav-link" to="/login">Login</Link>
+            <Link className={currentPathName === '/login' ? 'nav-link selected' : 'nav-link'} to="/login">Login</Link>
           </li>
           <li >
-            <Link className="nav-link" to="/signup">Signup</Link>
+            <Link className={currentPathName === '/signup' ? 'nav-link selected' : 'nav-link'} to="/signup">Signup</Link>
           </li>
           <li >
-            <Link className="nav-link" to="/account">Account</Link>
+            <Link className={currentPathName === '/account' ? 'nav-link selected' : 'nav-link'} to="/account">Account</Link>
           </li>
         </div>
 

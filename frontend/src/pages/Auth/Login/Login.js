@@ -2,8 +2,7 @@ import React from 'react'
 import { useState } from "react";
 import './login.css'
 import { createClient } from "@supabase/supabase-js";
-import Navbar from "../../components/Navbar/Navbar";
-
+import Navbar from '../../../components/Navbar/Navbar';
 
 function Login() {
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -29,7 +28,8 @@ function Login() {
         }
     };
     return (
-    <div className='login-body'>
+    <div className='metro-background'>
+    <div className='black-tint'>
     <Navbar />
     <div className="login-modal">
     <h2>Login</h2>
@@ -40,6 +40,7 @@ function Login() {
     <p>Don't Have An Acount? <a href='/signup'> Sign Up</a></p>
     </div>
     {error && <p>{error}</p>}
+  </div>
   </div>
   </div>
   )

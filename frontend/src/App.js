@@ -3,8 +3,8 @@ import './styles.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Map from "./components/Map/Map";
 import Home from "./pages/Home/Home"
-import Login from "./pages/Auth/Login";
-import Signup from "./pages/Auth/Signup";
+import Login from "./pages/Auth/Login/Login";
+import Signup from "./pages/Auth/Signup/Signup";
 import Account from "./pages/Account/Account";
 
 const App = () => {
