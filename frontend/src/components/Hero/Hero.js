@@ -1,7 +1,8 @@
 // Hero.js
 import React, { useEffect, useRef } from "react";
-import metroVideo from "../../assets/metro-video.mp4";
 import Navbar from "../Navbar/Navbar";
+import mtt from "../../assets/mtt.png";
+import ComplexGradientAnimation from "../Canvas";
 
 const Hero = () => {
   const videoRef = useRef(null);
@@ -23,27 +24,25 @@ const Hero = () => {
   }, []);
 
   const heroSectionStyle = {
-    height: window.innerHeight + "px",
+    height: window.innerHeight - 100 + "px",
   };
 
   return (
     <section id="hero" className="hero-section" style={heroSectionStyle}>
-      <video className="background-video" ref={videoRef} muted loop>
-        <source src={metroVideo} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      <div className="black-tint">
-        <Navbar />
-
-        <div className="container centered">
-          <div className="hero-content">
-            <h1>Cairo Metro</h1>
-            <p>Fast, Convenient, and Reliable Transit in Cairo</p>
-            <a href="/booking" className="btn btn-primary">
-              Book a Ticket
-            </a>
+      <ComplexGradientAnimation />
+      <div className="hero-wrapper">
+      <Navbar />  
+      <img src={mtt} alt="mtt" className="hero-content-image" />
+      <div className="container centered">
+        <div className="hero-content">
+          <div class="hero-content-text">
+            <h1 class="line line1">Fast,</h1>
+            <h1 class="line line2">Convenient</h1>
+            <h1 class="line line3">and Reliable</h1>
           </div>
         </div>
+      </div>
+    
       </div>
     </section>
   );

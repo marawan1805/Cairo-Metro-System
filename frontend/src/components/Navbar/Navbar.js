@@ -122,23 +122,29 @@ const Navbar = () => {
         <LogoLink href="/"></LogoLink>
 
         <div className="navbar-menu">
-          <li >
-            <Link className={currentPathName === '/services' ? 'nav-link selected' : 'nav-link'} to="services">Services</Link>
-          </li>
+        <ScrollLink
+                className="nav-link"
+                to="services"
+                smooth={true}
+                duration={100}
+                as="li"
+              >
+                Services
+              </ScrollLink>
           <li >              
-              <Link className={currentPathName === '/map' ? 'nav-link selected' : 'nav-link'}  to="/map">Map</Link>
+              <Link className='nav-link'  to="/map">Map</Link>
           </li>
           <li >
-            <Link className={currentPathName === '/booking' ? 'nav-link selected' : 'nav-link'} to="/booking">Book a Ticket</Link>
+            <Link className='nav-link'  to="/map">Book a Ticket</Link>
           </li>
           <li >
-            <Link className={currentPathName === '/login' ? 'nav-link selected' : 'nav-link'} to="/login">Login</Link>
+            <Link className='nav-link'  to="/login">Login</Link>
           </li>
           <li >
-            <Link className={currentPathName === '/signup' ? 'nav-link selected' : 'nav-link'} to="/signup">Signup</Link>
+            <Link className='nav-link'  to="/signup">Signup</Link>
           </li>
           <li >
-            <Link className={currentPathName === '/account' ? 'nav-link selected' : 'nav-link'} to="/account">Account</Link>
+            <Link className='nav-link'  to="/account">Account</Link>
           </li>
         </div>
 
