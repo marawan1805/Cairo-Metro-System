@@ -1,0 +1,539 @@
+{
+  "Helwan": {
+    "coordinates": [31.33410853276225, 29.84914634714805],
+    "connections": {
+      "Ain Helwan": { "route_id": "L1", "distance": 1.628976697936584 }
+    }
+  },
+  "Ain Helwan": {
+    "coordinates": [31.32502303424733, 29.862597003172006],
+    "connections": {
+      "Helwan University": { "route_id": "L1", "distance": 0.8542543921909901 },
+      "Helwan": { "route_id": "L1", "distance": 1.628976697936584 },
+      "Wadi Hof": { "route_id": "L1", "distance": 2.0176893935276876 }
+    }
+  },
+  "Helwan University": {
+    "coordinates": [31.320042201269043, 29.869444400328515],
+    "connections": {
+      "Wadi Hof": { "route_id": "L1", "distance": 1.1638332648704985 },
+      "Ain Helwan": { "route_id": "L1", "distance": 0.8542543921909901 }
+    }
+  },
+  "Wadi Hof": {
+    "coordinates": [31.31358312779722, 29.879082352385847],
+    "connections": {
+      "Hadayek Helwan": { "route_id": "L1", "distance": 2.022646200482459 },
+      "Helwan University": { "route_id": "L1", "distance": 1.1638332648704985 },
+      "Ain Helwan": { "route_id": "L1", "distance": 2.0176893935276876 }
+    }
+  },
+  "Hadayek Helwan": {
+    "coordinates": [31.30403428306754, 29.897186494682767],
+    "connections": {
+      "El-Maasara": { "route_id": "L1", "distance": 1.0065866851102803 },
+      "Wadi Hof": { "route_id": "L1", "distance": 2.022646200482459 }
+    }
+  },
+  "El-Maasara": {
+    "coordinates": [31.299532114352765, 29.906367940322625],
+    "connections": {
+      "Tora El-Asmant": { "route_id": "L1", "distance": 2.2886132431216795 },
+      "Hadayek Helwan": { "route_id": "L1", "distance": 1.0065866851102803 }
+    }
+  },
+  "Tora El-Asmant": {
+    "coordinates": [31.28760049465532, 29.92598265808241],
+    "connections": {
+      "Kozzika": { "route_id": "L1", "distance": 1.2062590265123578 },
+      "El-Maasara": { "route_id": "L1", "distance": 2.2886132431216795 }
+    }
+  },
+  "Kozzika": {
+    "coordinates": [31.281496782342437, 29.93646934724611],
+    "connections": {
+      "Tora El-Balad": { "route_id": "L1", "distance": 1.3665768039020434 },
+      "Tora El-Asmant": { "route_id": "L1", "distance": 1.2062590265123578 }
+    }
+  },
+  "Tora El-Balad": {
+    "coordinates": [31.272857495359396, 29.946704731439194],
+    "connections": {
+      "Sakanat El-Maadi": { "route_id": "L1", "distance": 1.2648405070334328 },
+      "Kozzika": { "route_id": "L1", "distance": 1.3665768039020434 }
+    }
+  },
+  "Sakanat El-Maadi": {
+    "coordinates": [31.2629560383864, 29.953300866486103],
+    "connections": {
+      "Maadi": { "route_id": "L1", "distance": 0.8834226023251281 },
+      "Tora El-Balad": { "route_id": "L1", "distance": 1.2648405070334328 }
+    }
+  },
+  "Maadi": {
+    "coordinates": [31.25772103367139, 29.960293332427153],
+    "connections": {
+      "Hadayek El-Maadi": { "route_id": "L1", "distance": 1.182937396209878 },
+      "Sakanat El-Maadi": { "route_id": "L1", "distance": 0.8834226023251281 }
+    }
+  },
+  "Hadayek El-Maadi": {
+    "coordinates": [31.250856948875825, 29.969801164853617],
+    "connections": {
+      "Dar El-Salam": { "route_id": "L1", "distance": 1.514866383584657 },
+      "Maadi": { "route_id": "L1", "distance": 1.182937396209878 }
+    }
+  },
+  "Dar El-Salam": {
+    "coordinates": [31.24213409346027, 29.98204125305389],
+    "connections": {
+      "El-Zahraa": { "route_id": "L1", "distance": 1.7645306501545548 },
+      "Hadayek El-Maadi": { "route_id": "L1", "distance": 1.514866383584657 }
+    }
+  },
+  "El-Zahraa": {
+    "coordinates": [31.231235189093308, 29.995538205219997],
+    "connections": {
+      "Mar Girgis": { "route_id": "L1", "distance": 1.0299748702976943 },
+      "Dar El-Salam": { "route_id": "L1", "distance": 1.7645306501545548 }
+    }
+  },
+  "Mar Girgis": {
+    "coordinates": [31.229554490172248, 30.00617047670444],
+    "connections": {
+      "El-Malek El-Saleh": { "route_id": "L1", "distance": 1.114281837563138 },
+      "El-Zahraa": { "route_id": "L1", "distance": 1.0299748702976943 }
+    }
+  },
+  "El-Malek El-Saleh": {
+    "coordinates": [31.23118190982651, 30.017711680367228],
+    "connections": {
+      "Al-Sayeda Zeinab": { "route_id": "L1", "distance": 1.195360026207685 },
+      "Mar Girgis": { "route_id": "L1", "distance": 1.114281837563138 }
+    }
+  },
+  "Al-Sayeda Zeinab": {
+    "coordinates": [31.2353285646519, 30.029293474558415],
+    "connections": {
+      "Saad Zaghloul": { "route_id": "L1", "distance": 0.666598246712876 },
+      "El-Malek El-Saleh": { "route_id": "L1", "distance": 1.195360026207685 }
+    }
+  },
+  "Saad Zaghloul": {
+    "coordinates": [31.237807820723994, 30.03566796087834],
+    "connections": {
+      "Sadat": { "route_id": "L1", "distance": 0.8140697858399731 },
+      "Al-Sayeda Zeinab": { "route_id": "L1", "distance": 0.666598246712876 }
+    }
+  },
+  "Sadat": {
+    "coordinates": [31.235837251943146, 30.04389955758051],
+    "connections": {
+      "Nasser": { "route_id": "L1", "distance": 0.9596525350908894 },
+      "Saad Zaghloul": { "route_id": "L1", "distance": 0.8140697858399731 },
+      "Mohamed Naguib": { "route_id": "L2", "distance": 0.9384399219469794 },
+      "Opera": { "route_id": "L2", "distance": 1.2181233319368867 }
+    }
+  },
+  "Nasser": {
+    "coordinates": [31.238644205914333, 30.053428427110276],
+    "connections": {
+      "Al-Shohadaa": { "route_id": "L1", "distance": 1.1478119520522816 },
+      "Sadat": { "route_id": "L1", "distance": 0.9596525350908894 },
+      "Attaba": { "route_id": "L3", "distance": 1.0000231172127285 },
+      "Maspero": { "route_id": "L3", "distance": 0.7409652001183306 }
+    }
+  },
+  "Orabi": {
+    "coordinates": [31.242317093327674, 30.05702175512958],
+    "connections": {}
+  },
+  "Al-Shohadaa": {
+    "coordinates": [31.24616453379819, 30.06170899155151],
+    "connections": {
+      "Ghamra": { "route_id": "L1", "distance": 2.163910527561567 },
+      "Nasser": { "route_id": "L1", "distance": 1.1478119520522816 },
+      "Masarra": { "route_id": "L2", "distance": 0.8832609653067686 },
+      "Attaba": { "route_id": "L2", "distance": 0.8084618508443315 }
+    }
+  },
+  "Ghamra": {
+    "coordinates": [31.264656055653045, 30.06897581676183],
+    "connections": {
+      "El-Demerdash": { "route_id": "L1", "distance": 1.6592601990716853 },
+      "Al-Shohadaa": { "route_id": "L1", "distance": 2.163910527561567 }
+    }
+  },
+  "El-Demerdash": {
+    "coordinates": [31.27781512949885, 30.077273667627733],
+    "connections": {
+      "Manshiet El-Sadr": { "route_id": "L1", "distance": 1.1672863274610594 },
+      "Ghamra": { "route_id": "L1", "distance": 1.6592601990716853 }
+    }
+  },
+  "Manshiet El-Sadr": {
+    "coordinates": [31.287534483841434, 30.081985210605765],
+    "connections": {
+      "Kobri El-Qobba": { "route_id": "L1", "distance": 0.8805669967209419 },
+      "El-Demerdash": { "route_id": "L1", "distance": 1.1672863274610594 }
+    }
+  },
+  "Kobri El-Qobba": {
+    "coordinates": [31.29408847493361, 30.087208660467457],
+    "connections": {
+      "Hammamat El-Qobba": { "route_id": "L1", "distance": 0.666859795207964 },
+      "Manshiet El-Sadr": { "route_id": "L1", "distance": 0.8805669967209419 }
+    }
+  },
+  "Saray El-Qobba": {
+    "coordinates": [31.30446397047951, 30.097717146303445],
+    "connections": {
+      "Hadayeq El-Zaitoun": {
+        "route_id": "L1",
+        "distance": 1.0250088692712687
+      },
+      "Hammamat El-Qobba": { "route_id": "L1", "distance": 0.8648037621854017 }
+    }
+  },
+  "Hadayeq El-Zaitoun": {
+    "coordinates": [31.310435733629507, 30.105936564753364],
+    "connections": {
+      "Helmeyet El-Zaitoun": {
+        "route_id": "L1",
+        "distance": 0.7978508915583659
+      },
+      "Saray El-Qobba": { "route_id": "L1", "distance": 1.0250088692712687 }
+    }
+  },
+  "Helmeyet El-Zaitoun": {
+    "coordinates": [31.31394258763929, 30.113255424091808],
+    "connections": {
+      "El-Matareyya": { "route_id": "L1", "distance": 0.7278949240117373 },
+      "Hadayeq El-Zaitoun": { "route_id": "L1", "distance": 0.7978508915583659 }
+    }
+  },
+  "El-Matareyya": {
+    "coordinates": [31.313700724530037, 30.120896985605423],
+    "connections": {
+      "Ain Shams": { "route_id": "L1", "distance": 1.1320992876559077 },
+      "Helmeyet El-Zaitoun": {
+        "route_id": "L1",
+        "distance": 0.7278949240117373
+      }
+    }
+  },
+  "Ain Shams": {
+    "coordinates": [31.319029270031805, 30.131042361299265],
+    "connections": {
+      "Ezbet El-Nakhl": { "route_id": "L1", "distance": 0.9921705112362436 },
+      "El-Matareyya": { "route_id": "L1", "distance": 1.1320992876559077 }
+    }
+  },
+  "Ezbet El-Nakhl": {
+    "coordinates": [31.324487382696095, 30.139302741181098],
+    "connections": {
+      "El-Marg": { "route_id": "L1", "distance": 1.7446165790864312 },
+      "Ain Shams": { "route_id": "L1", "distance": 0.9921705112362436 }
+    }
+  },
+  "El-Marg": {
+    "coordinates": [31.335738643956066, 30.15211739414948],
+    "connections": {
+      "New El-Marg": { "route_id": "L1", "distance": 1.124131673427216 },
+      "Ezbet El-Nakhl": { "route_id": "L1", "distance": 1.7446165790864312 }
+    }
+  },
+  "New El-Marg": {
+    "coordinates": [31.33822441901029, 30.1635690948086],
+    "connections": {
+      "El-Marg": { "route_id": "L1", "distance": 1.124131673427216 }
+    }
+  },
+  "El-Mounib": {
+    "coordinates": [31.21154471207719, 29.98161046320033],
+    "connections": {
+      "Sakiat Mekki": { "route_id": "L2", "distance": 1.3700530914395794 }
+    }
+  },
+  "Sakiat Mekki": {
+    "coordinates": [31.208583584161214, 29.9955686453925],
+    "connections": {
+      "Omm El-Misryeen": { "route_id": "L2", "distance": 0.9954706990400322 },
+      "El-Mounib": { "route_id": "L2", "distance": 1.3700530914395794 }
+    }
+  },
+  "El-Giza": {
+    "coordinates": [31.20706494458486, 30.01065632605146],
+    "connections": {
+      "Faisal": { "route_id": "L2", "distance": 0.7423519901351392 },
+      "Omm El-Misryeen": { "route_id": "L2", "distance": 0.45455455428720715 }
+    }
+  },
+  "Faisal": {
+    "coordinates": [31.203927405496525, 30.01753783979067],
+    "connections": {
+      "Cairo University": { "route_id": "L2", "distance": 0.8806227775587886 },
+      "El-Giza": { "route_id": "L2", "distance": 0.7423519901351392 }
+    }
+  },
+  "Cairo University": {
+    "coordinates": [31.201120553428915, 30.02618196882497],
+    "connections": {
+      "Bohooth": { "route_id": "L2", "distance": 0.9302708425086366 },
+      "Faisal": { "route_id": "L2", "distance": 0.8806227775587886 }
+    }
+  },
+  "Bohooth": {
+    "coordinates": [31.200268062398262, 30.035892579285463],
+    "connections": {
+      "Dokki": { "route_id": "L2", "distance": 1.3440711369353355 },
+      "Cairo University": { "route_id": "L2", "distance": 0.9302708425086366 }
+    }
+  },
+  "Dokki": {
+    "coordinates": [31.212181919393053, 30.038498738247384],
+    "connections": {
+      "Opera": { "route_id": "L2", "distance": 1.4564618223238897 },
+      "Bohooth": { "route_id": "L2", "distance": 1.3440711369353355 }
+    }
+  },
+  "Opera": {
+    "coordinates": [31.224979413995325, 30.041947747224217],
+    "connections": {
+      "Sadat": { "route_id": "L2", "distance": 1.2181233319368867 },
+      "Dokki": { "route_id": "L2", "distance": 1.4564618223238897 }
+    }
+  },
+  "Mohamed Naguib": {
+    "coordinates": [31.244212947905154, 30.045319218536893],
+    "connections": {
+      "Attaba": { "route_id": "L2", "distance": 0.8598684387899218 },
+      "Sadat": { "route_id": "L2", "distance": 0.9384399219469794 }
+    }
+  },
+  "Attaba": {
+    "coordinates": [31.247663663601074, 30.053403159057645],
+    "connections": {
+      "Bab El-Shaaria": { "route_id": "L3", "distance": 0.929623886754541 },
+      "Nasser": { "route_id": "L3", "distance": 1.0000231172127285 },
+      "Al-Shohadaa": { "route_id": "L2", "distance": 0.8084618508443315 },
+      "Mohamed Naguib": { "route_id": "L2", "distance": 0.8598684387899218 }
+    }
+  },
+  "Masarra": {
+    "coordinates": [31.245031775686467, 30.070887018617462],
+    "connections": {
+      "Rod El Farag": { "route_id": "L2", "distance": 0.9252225147753701 },
+      "Al-Shohadaa": { "route_id": "L2", "distance": 0.8832609653067686 }
+    }
+  },
+  "Rod El Farag": {
+    "coordinates": [31.245425463800174, 30.080588909361392],
+    "connections": {
+      "St. Teresa": { "route_id": "L2", "distance": 0.7010828648273922 },
+      "Masarra": { "route_id": "L2", "distance": 0.9252225147753701 }
+    }
+  },
+  "St. Teresa": {
+    "coordinates": [31.24547940507942, 30.087948414405773],
+    "connections": {
+      "Khalafawy": { "route_id": "L2", "distance": 0.9466205524471247 },
+      "Rod El Farag": { "route_id": "L2", "distance": 0.7010828648273922 }
+    }
+  },
+  "Khalafawy": {
+    "coordinates": [31.24537727883162, 30.097885060102957],
+    "connections": {
+      "Mezallat": { "route_id": "L2", "distance": 0.5797266385685771 },
+      "St. Teresa": { "route_id": "L2", "distance": 0.9466205524471247 }
+    }
+  },
+  "Mezallat": {
+    "coordinates": [31.246039575916353, 30.103921867160246],
+    "connections": {
+      "Kolleyyet El-Zeraa": {
+        "route_id": "L2",
+        "distance": 0.9751576687416874
+      },
+      "Khalafawy": { "route_id": "L2", "distance": 0.5797266385685771 }
+    }
+  },
+  "Kolleyyet El-Zeraa": {
+    "coordinates": [31.248636608452816, 30.113702544396467],
+    "connections": {
+      "Shubra El-Kheima": { "route_id": "L2", "distance": 0.9455184582741621 },
+      "Mezallat": { "route_id": "L2", "distance": 0.9751576687416874 }
+    }
+  },
+  "Shubra El-Kheima": {
+    "coordinates": [31.24477240709656, 30.12255097484414],
+    "connections": {
+      "Kolleyyet El-Zeraa": { "route_id": "L2", "distance": 0.9455184582741621 }
+    }
+  },
+  "Fair Zone": {
+    "coordinates": [31.30053020267432, 30.073139739679288],
+    "connections": {
+      "Stadium": { "route_id": "L3", "distance": 1.8520529213655057 },
+      "Abbassiya": { "route_id": "L3", "distance": 2.191364683898519 }
+    }
+  },
+  "Koleyet El-Banat": {
+    "coordinates": [31.329077319616786, 30.0841601859383],
+    "connections": {
+      "Al-Ahram": { "route_id": "L3", "distance": 0.7298487828176172 },
+      "Stadium": { "route_id": "L3", "distance": 1.6971642380143956 }
+    }
+  },
+  "Stadium": {
+    "coordinates": [31.31723255102425, 30.07286581325738],
+    "connections": {
+      "Koleyet El-Banat": { "route_id": "L3", "distance": 1.6971642380143956 },
+      "Fair Zone": { "route_id": "L3", "distance": 1.8520529213655057 }
+    }
+  },
+  "Al-Ahram": {
+    "coordinates": [31.326571419369312, 30.091251206521754],
+    "connections": {
+      "Haroun": { "route_id": "L3", "distance": 1.1990460960921778 },
+      "Koleyet El-Banat": { "route_id": "L3", "distance": 0.7298487828176172 }
+    }
+  },
+  "Abbassiya": {
+    "coordinates": [31.280995006113262, 30.0696450004233],
+    "connections": {
+      "Fair Zone": { "route_id": "L3", "distance": 2.191364683898519 },
+      "Abdou Pasha": { "route_id": "L3", "distance": 0.8304317504482678 }
+    }
+  },
+  "Abdou Pasha": {
+    "coordinates": [31.274784725194078, 30.0647700645299],
+    "connections": {
+      "Abbassiya": { "route_id": "L3", "distance": 0.8304317504482678 },
+      "El-Geish": { "route_id": "L3", "distance": 0.9185069851534525 }
+    }
+  },
+  "El-Geish": {
+    "coordinates": [31.26690946661129, 30.061777091963876],
+    "connections": {
+      "Abdou Pasha": { "route_id": "L3", "distance": 0.9185069851534525 },
+      "Bab El-Shaaria": { "route_id": "L3", "distance": 1.420763896554922 }
+    }
+  },
+  "Bab El-Shaaria": {
+    "coordinates": [31.25603817306561, 30.053879983862025],
+    "connections": {
+      "El-Geish": { "route_id": "L3", "distance": 1.420763896554922 },
+      "Attaba": { "route_id": "L3", "distance": 0.929623886754541 }
+    }
+  },
+  "Omm El-Misryeen": {
+    "coordinates": [31.207886471702118, 30.005983191359014],
+    "connections": {
+      "El-Giza": { "route_id": "L2", "distance": 0.45455455428720715 },
+      "Sakiat Mekki": { "route_id": "L2", "distance": 0.9954706990400322 }
+    }
+  },
+  "Hammamat El-Qobba": {
+    "coordinates": [31.299031937134455, 30.091198338032783],
+    "connections": {
+      "Saray El-Qobba": { "route_id": "L1", "distance": 0.8648037621854017 },
+      "Kobri El-Qobba": { "route_id": "L1", "distance": 0.666859795207964 }
+    }
+  },
+  "Haroun": {
+    "coordinates": [31.33302277430964, 30.1013623981203],
+    "connections": {
+      "Heliopolis": { "route_id": "L3", "distance": 0.8901033035644689 },
+      "Al-Ahram": { "route_id": "L3", "distance": 1.1990460960921778 }
+    }
+  },
+  "Shams Club": {
+    "coordinates": [31.348870906771978, 30.125442220661505],
+    "connections": {
+      "Nozha 1": { "route_id": "L3", "distance": 1.2718216772893556 },
+      "Alf Maskan": { "route_id": "L3", "distance": 1.1501163850281528 }
+    }
+  },
+  "Alf Maskan": {
+    "coordinates": [31.340081751338918, 30.119023173519725],
+    "connections": {
+      "Shams Club": { "route_id": "L3", "distance": 1.1501163850281528 },
+      "Heliopolis": { "route_id": "L3", "distance": 1.0250369473251375 }
+    }
+  },
+  "Omar Ibn El Khataab": {
+    "coordinates": [31.3940955, 30.1401873],
+    "connections": {
+      "Hikestep": { "route_id": "L3", "distance": 1.2193693401089893 },
+      "Kebaa": { "route_id": "L3", "distance": 1.246887783689425 }
+    }
+  },
+  "Kebaa": {
+    "coordinates": [31.383925542138915, 30.134591960834047],
+    "connections": {
+      "Omar Ibn El Khataab": {
+        "route_id": "L3",
+        "distance": 1.246887783689425
+      },
+      "Hesham Barakat": { "route_id": "L3", "distance": 1.250262345412199 }
+    }
+  },
+  "Nozha 1": {
+    "coordinates": [31.360073776082086, 30.128313860131556],
+    "connections": {
+      "Hesham Barakat": { "route_id": "L3", "distance": 1.465841109357657 },
+      "Shams Club": { "route_id": "L3", "distance": 1.2718216772893556 }
+    }
+  },
+  "Adly Mansour": {
+    "coordinates": [31.42137103728375, 30.1468755568159],
+    "connections": {
+      "Hikestep": { "route_id": "L3", "distance": 1.8727159618358673 }
+    }
+  },
+  "Hesham Barakat": {
+    "coordinates": [31.37311146728965, 30.13086775058518],
+    "connections": {
+      "Kebaa": { "route_id": "L3", "distance": 1.250262345412199 },
+      "Nozha 1": { "route_id": "L3", "distance": 1.465841109357657 }
+    }
+  },
+  "Hikestep": {
+    "coordinates": [31.40475520073185, 30.143340926785022],
+    "connections": {
+      "Adly Mansour": { "route_id": "L3", "distance": 1.8727159618358673 },
+      "Omar Ibn El Khataab": {
+        "route_id": "L3",
+        "distance": 1.2193693401089893
+      }
+    }
+  },
+  "Heliopolis": {
+    "coordinates": [31.33824408584403, 30.108466908307538],
+    "connections": {
+      "Alf Maskan": { "route_id": "L3", "distance": 1.0250369473251375 },
+      "Haroun": { "route_id": "L3", "distance": 0.8901033035644689 }
+    }
+  },
+  "Kit Kat": {
+    "coordinates": [31.212989560226863, 30.066767510617375],
+    "connections": {
+      "Safaa Hegazy": { "route_id": "L3", "distance": 1.1333326920277578 }
+    }
+  },
+  "Maspero": {
+    "coordinates": [31.232262789334946, 30.05573841154803],
+    "connections": {
+      "Nasser": { "route_id": "L3", "distance": 0.7409652001183306 },
+      "Safaa Hegazy": { "route_id": "L3", "distance": 1.256210476550762 }
+    }
+  },
+  "Safaa Hegazy": {
+    "coordinates": [31.222521328419887, 30.06247137084837],
+    "connections": {
+      "Maspero": { "route_id": "L3", "distance": 1.256210476550762 },
+      "Kit Kat": { "route_id": "L3", "distance": 1.1333326920277578 }
+    }
+  }
+}

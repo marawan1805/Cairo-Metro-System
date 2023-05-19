@@ -1,3 +1,6 @@
 node_modules
 # Keep environment variables out of version control
 .env
+backend/shortest_paths.json
+frontend/src/shortest_paths.txt
+frontend/src/metro_data.json

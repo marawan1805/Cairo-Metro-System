@@ -19,6 +19,7 @@ const Map = () => {
   const [mapStyle, setMapStyle] = useState(
     "mapbox://styles/marawan1805/clh7miglu00vh01pg1vr50erd"
   );
+  const [shortestPath, setShortestPath] = useState([]);
 
   // Hover popup
   let hoverPopup = null;
@@ -28,8 +29,18 @@ const Map = () => {
   const [bookingTicket, setBookingTicket] = useState(false);
 
   const handleBookTicketClick = (feature) => {
-    setEndStation(feature);
+    if (bookingTicket) {
+      setStartStation(feature);
+      setBookingTicket(false);
+      if (clickPopup) {
+        clickPopup.remove();
+        clickPopup = null;
+      }
+      return;
+    }
     setBookingTicket(true);
+    setEndStation(feature);
+
     if (clickPopup) {
       clickPopup.remove();
     }
@@ -38,38 +49,45 @@ const Map = () => {
   const handleStationClick = (feature) => {
     if (bookingTicket) {
       // If this is the starting station, do not create a popup
-      if (startStation && startStation.properties.stop_id === feature.properties.stop_id) {
+      if (
+        startStation &&
+        startStation.properties.stop_id === feature.properties.stop_id
+      ) {
         return;
       }
       setStartStation(feature);
       setBookingTicket(false);
-    } else {
-      if (clickPopup) {
-        clickPopup.remove();
-        clickPopup = null;
-      }
-      const popupContent = `
-        <div class="station-popup">
-          <h3>${feature.properties.stop_name}</h3>
-          <p>Stop ID: ${feature.properties.stop_id}</p>
-          ${!bookingTicket ? `<button id="book-ticket-button" class="book-ticket-button">Book Ticket</button>` : ''}
-        </div>
-      `;
-  
-      clickPopup = new Popup({
-        closeButton: false,
-        offset: [0, 0],
-      })
-        .setLngLat(feature.geometry.coordinates)
-        .setHTML(popupContent)
-        .addTo(mapInstance);
-  
-      document.getElementById("book-ticket-button").onclick = () =>
-        handleBookTicketClick(feature);
+      return; // return early here
     }
+
+    if (clickPopup) {
+      clickPopup.remove();
+      clickPopup = null;
+    }
+
+    const popupContent = `
+      <div class="station-popup">
+        <h3>${feature.properties.stop_name}</h3>
+        <p>Stop ID: ${feature.properties.stop_id}</p>
+        ${
+          !bookingTicket
+            ? `<button id="book-ticket-button" class="book-ticket-button">Book Ticket</button>`
+            : ""
+        }
+      </div>
+    `;
+    clickPopup = new Popup({
+      closeButton: false,
+      offset: [0, 0],
+    })
+      .setLngLat(feature.geometry.coordinates)
+      .setHTML(popupContent)
+      .addTo(mapInstance);
+
+    document.getElementById("book-ticket-button").onclick = () =>
+      handleBookTicketClick(feature);
   };
-  
-  
+
   const reset = () => {
     if (clickPopup) {
       clickPopup.remove();
@@ -86,12 +104,13 @@ const Map = () => {
       zoom: 12,
     });
 
- 
-      setMapInstance(map);
-
+    setMapInstance(map);
+    if (mapInstance.getLayer("path")) {
+      // Remove the path layer and source
+      mapInstance.removeLayer("path");
+      mapInstance.removeSource("path");
+    }
   };
-  
-  
 
   useEffect(() => {
     if (!mapInstance) {
@@ -149,6 +168,28 @@ const Map = () => {
     };
   }, [mapStyle, mapInstance]);
 
+  const handleProceedClick = async () => {
+    // Only proceed if both stations are selected
+    if (startStation && endStation) {
+      // Make the API request
+      const response = await fetch(
+        `http://localhost:3000/shortest_path?startStation=${startStation.properties.stop_name}&endStation=${endStation.properties.stop_name}`
+      );
+      const data = await response.json();
+
+      // Set the shortest path
+      setShortestPath(
+        data.path.map((station) => ({
+          ...station,
+          geometry: {
+            coordinates: station.routePoints,
+          },
+        }))
+      );
+      console.log(data.path);
+    }
+  };
+
   useEffect(() => {
     if (mapInstance) {
       mapInstance.on("click", (event) => {
@@ -157,11 +198,68 @@ const Map = () => {
         });
 
         if (features.length > 0) {
-          handleStationClick(features[0]);
+          if (bookingTicket) {
+            if (
+              startStation &&
+              startStation.properties.stop_id === features[0].properties.stop_id
+            ) {
+              return;
+            }
+            setStartStation(features[0]);
+            setBookingTicket(false);
+          } else {
+            handleStationClick(features[0]);
+          }
         }
       });
     }
-  }, [mapInstance, bookingTicket]);
+  }, [mapInstance, bookingTicket, startStation]);
+ 
+  function createGeoJSONLine(path) {
+    // Create a list of all route points across all stations
+    const coordinates = path.flatMap((station) => station.routePoints);
+  
+    return {
+      type: "Feature",
+      geometry: {
+        type: "LineString",
+        coordinates: coordinates,
+      },
+    };
+  }
+  
+  function drawPathOnMap(map, path) {
+    if (map.getSource("path")) {
+      // Ensure that the source and layer do not already exist before attempting to add them
+      map.removeLayer("path");
+      map.removeSource("path");
+    }
+  
+    // Convert the path into a LineString GeoJSON
+    const geoJSON = createGeoJSONLine(path);
+  
+    // Add a data source for the path
+    map.addSource("path", {
+      type: "geojson",
+      data: geoJSON,
+    });
+  
+    // Add a new line layer to draw the path
+    map.addLayer({
+      id: "path",
+      type: "line",
+      source: "path",
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#f243f1", // You can change this to any color you want
+        "line-width": 10,
+      },
+    });
+  }
+  
 
   useEffect(() => {
     if (mapInstance && startStation && endStation) {
@@ -204,9 +302,15 @@ const Map = () => {
       });
     }
   }, [mapInstance, startStation, endStation]);
+  useEffect(() => {
+    if (mapInstance && shortestPath.length > 0) {
+      // This is just a stub. Replace this with the actual code to draw the path on the map.
+      drawPathOnMap(mapInstance, shortestPath);
+    }
+  }, [mapInstance, shortestPath]);
 
   return (
-    <MapContext.Provider value={{ setMapStyle}}>
+    <MapContext.Provider value={{ setMapStyle }}>
       <div className="map-wrapper">
         <Header />
         <div className="map-container" ref={mapContainer} />
@@ -220,10 +324,23 @@ const Map = () => {
         )}
         {endStation && (
           <div>
-            <button style={{"zIndex":1000, "position":"absolute"}} onClick={reset}>Reset</button>
-
+            <button
+              style={{ zIndex: 1000, position: "absolute" }}
+              onClick={reset}
+            >
+              Reset
+            </button>
           </div>
         )}
+        {startStation && endStation && (
+          <button
+            style={{ zIndex: 1000, position: "absolute" }}
+            onClick={handleProceedClick}
+          >
+            Proceed
+          </button>
+        )}
+
         <ThemeSelector />
       </div>
     </MapContext.Provider>
