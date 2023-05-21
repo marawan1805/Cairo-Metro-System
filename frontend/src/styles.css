@@ -83,6 +83,7 @@ code {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  align-self: center;
   max-width: 100%;
   margin: 0 auto;
   z-index: 1000;

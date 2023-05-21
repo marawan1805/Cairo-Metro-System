@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { createClient } from "@supabase/supabase-js";
 import Navbar from '../../../components/Navbar/Navbar';
 import './signup.css'
+import ComplexGradientAnimation from '../../../components/Canvas';
 
 function Signup() {
       const [step, setStep] = useState(1);
@@ -127,14 +128,13 @@ function Signup() {
           </div>
 
       return(
-        <div className='metro-background'> 
-        <div className='black-tint'>
+        <div className='signup-body'> 
         <Navbar />
+        <div><ComplexGradientAnimation /></div>
         <div className='signup-form'>
         { step === 1 && <Step1Signup/> }
         { step === 2 && <Step2Signup/> }
         { step === 3 && <Step3Signup/> }
-        </div>
         </div>
         </div>
        

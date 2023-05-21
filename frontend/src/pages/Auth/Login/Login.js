@@ -3,6 +3,7 @@ import { useState } from "react";
 import './login.css'
 import { createClient } from "@supabase/supabase-js";
 import Navbar from '../../../components/Navbar/Navbar';
+import ComplexGradientAnimation from '../../../components/Canvas';
 
 function Login() {
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -28,9 +29,11 @@ function Login() {
         }
     };
     return (
-    <div className='metro-background'>
-    <div className='black-tint'>
+    <div className='login-body'>
     <Navbar />
+
+    <div><ComplexGradientAnimation/></div>
+
     <div className="login-modal">
     <h2>Login</h2>
       <input className='input' placeholder='Phone Number' value={phoneNumber} type='tel' onChange={(e) => setPhoneNumber(e.target.value)} required/>
@@ -40,8 +43,8 @@ function Login() {
     <p>Don't Have An Acount? <a href='/signup'> Sign Up</a></p>
     </div>
     {error && <p>{error}</p>}
-  </div>
-  </div>
+  
+    </div>
   </div>
   )
 }
