@@ -2,6 +2,7 @@ import React from 'react'
 import '../../styles.css'
 import './account.css'
 import Navbar from '../../components/Navbar/Navbar'
+import ComplexGradientAnimation from '../../components/Canvas'
 
 function Account() {
 
@@ -16,11 +17,10 @@ function Account() {
   }
 
   return (
-    <div className='metro-background'>
-    <div className='black-tint'>
+    <div className='account-background'>
         <Navbar />
+        <div><ComplexGradientAnimation/></div>
         <div className='account-body'>
-
           <div className='account-details'>
             <div className='detail'>Name: Raffy Mekhtik</div>
             <div className='detail'>Email: raffynorair@gmail.com</div>
@@ -37,7 +37,6 @@ function Account() {
           </div>
 
         </div>
-    </div>
     </div>
   )
 }
