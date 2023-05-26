@@ -5,6 +5,7 @@ import Menu from "../Menu";
 import ThemeSelector from "../ThemeSelector";
 import Header from "../Header/Header";
 import LocationCards from "./LocationCards";
+import { Button, Card, CardContent, Typography, Grid } from "@material-ui/core";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoibWFyYXdhbjE4MDUiLCJhIjoiY2xoN2tlaXc2MGg4MDNlczZlNjl1cGlvbiJ9.z1IvnyHR-Uo83BIeuuIZBQ";
@@ -12,10 +13,12 @@ mapboxgl.accessToken =
 export const MapContext = createContext();
 
 const Map = () => {
+  const [numStations, setNumStations] = useState(0);
   const mapContainer = useRef(null);
   const [mapInstance, setMapInstance] = useState(null);
   const [startStation, setStartStation] = useState(null);
   const [endStation, setEndStation] = useState(null);
+  const [price, setPrice] = useState(0);
   const [mapStyle, setMapStyle] = useState(
     "mapbox://styles/marawan1805/clh7miglu00vh01pg1vr50erd"
   );
@@ -27,11 +30,14 @@ const Map = () => {
   let clickPopup = null;
 
   const [bookingTicket, setBookingTicket] = useState(false);
+  const [bookingStep, setBookingStep] = useState(0);
+  const [isCardVisible, setCardVisible] = useState(false);
 
   const handleBookTicketClick = (feature) => {
     if (bookingTicket) {
       setStartStation(feature);
       setBookingTicket(false);
+      setCardVisible(true);
       if (clickPopup) {
         clickPopup.remove();
         clickPopup = null;
@@ -40,7 +46,8 @@ const Map = () => {
     }
     setBookingTicket(true);
     setEndStation(feature);
-
+    setBookingStep(1);
+    console.log(feature);
     if (clickPopup) {
       clickPopup.remove();
     }
@@ -103,7 +110,7 @@ const Map = () => {
       center: [31.2357, 30.0444], // Cairo's longitude and latitude
       zoom: 12,
     });
-
+    setBookingStep(0);
     setMapInstance(map);
     if (mapInstance.getLayer("path")) {
       // Remove the path layer and source
@@ -168,7 +175,15 @@ const Map = () => {
     };
   }, [mapStyle, mapInstance]);
 
+  const calculatePrice = () => {
+    if (!shortestPath) return 0;
+    if (numStations <= 9) return 5;
+    else if (numStations <= 16 && numStations >= 10) return 7;
+    else if (numStations > 16) return 10;
+  };
+
   const handleProceedClick = async () => {
+    setBookingStep(2);
     // Only proceed if both stations are selected
     if (startStation && endStation) {
       // Make the API request
@@ -186,7 +201,12 @@ const Map = () => {
           },
         }))
       );
-      console.log(data.path);
+      setNumStations(data.path.length);
+
+      console.log(data.path.length);
+      // Calculate and set the price
+      const price = calculatePrice();
+      setPrice(price);
     }
   };
 
@@ -214,11 +234,11 @@ const Map = () => {
       });
     }
   }, [mapInstance, bookingTicket, startStation]);
- 
+
   function createGeoJSONLine(path) {
     // Create a list of all route points across all stations
     const coordinates = path.flatMap((station) => station.routePoints);
-  
+
     return {
       type: "Feature",
       geometry: {
@@ -227,23 +247,23 @@ const Map = () => {
       },
     };
   }
-  
+
   function drawPathOnMap(map, path) {
     if (map.getSource("path")) {
       // Ensure that the source and layer do not already exist before attempting to add them
       map.removeLayer("path");
       map.removeSource("path");
     }
-  
+
     // Convert the path into a LineString GeoJSON
     const geoJSON = createGeoJSONLine(path);
-  
+
     // Add a data source for the path
     map.addSource("path", {
       type: "geojson",
       data: geoJSON,
     });
-  
+
     // Add a new line layer to draw the path
     map.addLayer({
       id: "path",
@@ -254,12 +274,13 @@ const Map = () => {
         "line-cap": "round",
       },
       paint: {
-        "line-color": "#f243f1", // You can change this to any color you want
-        "line-width": 10,
+        "line-color": "#00b0ff", // Blue color for the line
+        "line-width": 8, // Thin line
+        "line-blur": 0.5, // Adding a small blur will make the line and resumed at msg4.Rollback."]
+     
       },
     });
   }
-  
 
   useEffect(() => {
     if (mapInstance && startStation && endStation) {
@@ -279,7 +300,7 @@ const Map = () => {
 
       mapInstance.flyTo({
         center: endStation.geometry.coordinates,
-        zoom: 13,
+        zoom: 12,
         speed: 0.8,
       });
     } else if (mapInstance && endStation) {
@@ -295,13 +316,14 @@ const Map = () => {
         ]
       );
 
-      mapInstance.flyTo({
-        center: endStation.geometry.coordinates,
-        zoom: 13,
-        speed: 0.8,
-      });
+      // mapInstance.flyTo({
+      //   center: endStation.geometry.coordinates,
+      //   zoom: 13,
+      //   speed: 0.8,
+      // });
     }
   }, [mapInstance, startStation, endStation]);
+
   useEffect(() => {
     if (mapInstance && shortestPath.length > 0) {
       // This is just a stub. Replace this with the actual code to draw the path on the map.
@@ -315,32 +337,44 @@ const Map = () => {
         <Header />
         <div className="map-container" ref={mapContainer} />
         {endStation && (
-          <div>
-            <LocationCards
-              startStation={startStation}
-              endStation={endStation}
-            />
-          </div>
-        )}
-        {endStation && (
-          <div>
-            <button
-              style={{ zIndex: 1000, position: "absolute" }}
-              onClick={reset}
-            >
-              Reset
-            </button>
-          </div>
-        )}
-        {startStation && endStation && (
-          <button
-            style={{ zIndex: 1000, position: "absolute" }}
-            onClick={handleProceedClick}
-          >
-            Proceed
-          </button>
-        )}
+          <Card className="card" style={{"height":"100%"}}>
+            {endStation && !price && (
+              <CardContent style={{"justifyContent":"center", "alignItems":"center"}}>
+                <LocationCards
+                  startStation={startStation}
+                  setStartStation={setStartStation}
+                  endStation={endStation}
+                  setEndStation={setEndStation}
+                  // allStations={allStations}
+                />
 
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleProceedClick}
+                >
+                  Proceed
+                </Button>
+
+                <Button variant="outlined" onClick={reset}>
+                  Reset
+                </Button>
+              </CardContent>
+            )}
+            {price > 0 && (
+              <CardContent>
+                <Typography variant="h5">Price: {price} EGP</Typography>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleBookTicketClick}
+                >
+                  Book Ticket
+                </Button>
+              </CardContent>
+            )}
+          </Card>
+        )}
         <ThemeSelector />
       </div>
     </MapContext.Provider>

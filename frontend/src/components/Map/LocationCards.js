@@ -1,11 +1,11 @@
-import React from 'react';
-import './LocationCards.css';
+import React from "react";
+import "./LocationCards.css";
 
 const LocationCards = ({ startStation, endStation }) => {
   return (
     <div className="location-cards-container">
       <div className="location-card">
-        <h3>Start Station</h3>
+        <h3>Start</h3>
         {startStation ? (
           <p>{startStation.properties.stop_name}</p>
         ) : (
@@ -13,7 +13,7 @@ const LocationCards = ({ startStation, endStation }) => {
         )}
       </div>
       <div className="location-card">
-        <h3>End Station</h3>
+        <h3>End</h3>
         {endStation ? (
           <p>{endStation.properties.stop_name}</p>
         ) : (

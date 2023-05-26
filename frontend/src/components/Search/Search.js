@@ -4,7 +4,7 @@ import "./Search.css";
 
 const SearchBoxStyled = styled.div`
   .search-box {
-    background-color: var(--f-mkcy-f);
+  
     border: 1px solid #DDD;
     border-radius: 40px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -17,6 +17,7 @@ const SearchBoxStyled = styled.div`
     z-index: 100;
     padding: 10px;
     position: relative;
+    background-color: #fff;
   }
   .search-box:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -32,7 +33,7 @@ const Search = () => {
           placeholder="Search"
           style={{
             border: "none",
-            background: "transparent",
+          
             outline: "none",
             fontSize: "16px",
             width: "90%",

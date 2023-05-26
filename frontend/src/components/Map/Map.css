@@ -11,6 +11,8 @@ html, body, #root {
   position: absolute;
   top: 0;
   left: 0;
+  display: flex;
+  align-items: stretch;
 }
 
 .station-marker {
@@ -78,4 +80,78 @@ html, body, #root {
 
 .book-ticket-button:hover {
   background-color: #45a049;
+}
+
+.map-container {
+  height: 100%;
+}
+
+button {
+  margin-top: 10px;
+}
+
+.card.visible {
+  display: block;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.card-content h2 {
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 10px 0;
+  color: #333;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.button-container button {
+  margin: 0 10px;
+}
+
+#book-ticket {
+  background-color: #FF6F00;
+  color: white;
+}
+/* Some previous styles omitted for brevity */
+
+.card {
+  overflow: hidden;
+  width: 350px;
+  background: transparent;
+  display: none;
+  padding: 20px;
+  height:100%;
+  position: absolute;
+}
+
+.station-card, .price-card, .reset-card {
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+button {
+  margin-top: 10px;
+}
+
+button#book-ticket {
+  background-color: #FF6F00;
+  color: white;
 }
