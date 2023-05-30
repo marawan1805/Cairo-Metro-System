@@ -155,3 +155,7 @@ button#book-ticket {
   background-color: #FF6F00;
   color: white;
 }
+
+.mapboxgl-marker-selected {
+  animation: pulse 1.5s infinite;
+}

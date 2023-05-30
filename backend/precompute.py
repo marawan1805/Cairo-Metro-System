@@ -3,6 +3,7 @@ import json
 from collections import defaultdict
 from geopy.distance import geodesic
 from pymongo import MongoClient
+import os 
 
 coord_pattern = re.compile(r"\((.+)\)")
 
@@ -13,7 +14,9 @@ routes_collection = db.routes
 
 stops = {}
 for stop in stops_collection.find():
-    coordinates = tuple(map(float, coord_pattern.search(stop['geometry']).group(1).split()))
+    coordinate_string = coord_pattern.search(stop['geometry']).group(1).strip()
+    coordinates = tuple(float(coord) for coord in coordinate_string.split(' ') if coord)
+
     stops[stop['stop_name']] = {'coordinates': coordinates, 'connections': defaultdict(list)}
 
 def calculate_distance(coord1, coord2):
@@ -31,6 +34,9 @@ for row in routes_collection.find():
                 stops[start_station]['connections'][end_station] = {'route_id': row['route_id'], 'distance': calculate_distance(stops[start_station]['coordinates'], stops[end_station]['coordinates'])}
             if start_station not in stops[end_station]['connections']:
                 stops[end_station]['connections'][start_station] = {'route_id': row['route_id'], 'distance': calculate_distance(stops[start_station]['coordinates'], stops[end_station]['coordinates'])}
+
+if os.path.exists('metro_graph.json'):
+    os.remove('metro_graph.json')
 
 with open('metro_graph.json', 'w') as f:
     json.dump(stops, f)

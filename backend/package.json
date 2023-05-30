@@ -1,6 +1,10 @@
 {
   "dependencies": {
     "csv-parser": "^3.0.0",
-    "lodash": "^4.17.21"
+    "geolib": "^3.3.3",
+    "lodash": "^4.17.21",
+    "mongodb": "^5.5.0",
+    "mongoose": "^7.2.1",
+    "python-shell": "^5.0.0"
   }
 }

@@ -1,4 +1,10 @@
-import React, { useRef, useEffect, useState, createContext } from "react";
+import React, {
+  useRef,
+  useEffect,
+  useState,
+  createContext,
+  useContext,
+} from "react";
 import mapboxgl, { Popup } from "mapbox-gl";
 import "./Map.css";
 import Menu from "../Menu";
@@ -6,6 +12,8 @@ import ThemeSelector from "../ThemeSelector";
 import Header from "../Header/Header";
 import LocationCards from "./LocationCards";
 import { Button, Card, CardContent, Typography, Grid } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import { StationContext } from "../../Context/StationContext";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoibWFyYXdhbjE4MDUiLCJhIjoiY2xoN2tlaXc2MGg4MDNlczZlNjl1cGlvbiJ9.z1IvnyHR-Uo83BIeuuIZBQ";
@@ -20,10 +28,10 @@ const Map = () => {
   const [endStation, setEndStation] = useState(null);
   const [price, setPrice] = useState(0);
   const [mapStyle, setMapStyle] = useState(
-    "mapbox://styles/marawan1805/clh7miglu00vh01pg1vr50erd"
+    "mapbox://styles/marawan1805/clh7obmkt00ph01qt3fz40g7g"
   );
   const [shortestPath, setShortestPath] = useState([]);
-
+    const [isProceed, setIsProceed] = useState(false);
   // Hover popup
   let hoverPopup = null;
   // Click popup
@@ -31,71 +39,40 @@ const Map = () => {
 
   const [bookingTicket, setBookingTicket] = useState(false);
   const [bookingStep, setBookingStep] = useState(0);
-  const [isCardVisible, setCardVisible] = useState(false);
+  const { setHandleStationClick } = useContext(StationContext);
+  const [selectedFeature, setSelectedFeature] = useState(null);
 
   const handleBookTicketClick = (feature) => {
     if (bookingTicket) {
-      setStartStation(feature);
+      if(!isProceed){
+      setStartStation(feature);}
       setBookingTicket(false);
-      setCardVisible(true);
-      if (clickPopup) {
-        clickPopup.remove();
-        clickPopup = null;
-      }
+      if(bookingStep<2)
+      setSelectedFeature(feature);
       return;
     }
     setBookingTicket(true);
     setEndStation(feature);
     setBookingStep(1);
-    console.log(feature);
-    if (clickPopup) {
-      clickPopup.remove();
-    }
+    if(bookingStep<2)
+    setSelectedFeature(feature);
   };
+
 
   const handleStationClick = (feature) => {
-    if (bookingTicket) {
-      // If this is the starting station, do not create a popup
-      if (
-        startStation &&
-        startStation.properties.stop_id === feature.properties.stop_id
-      ) {
-        return;
-      }
-      setStartStation(feature);
-      setBookingTicket(false);
-      return; // return early here
+    if (feature && feature.properties) {
+      if(bookingStep<2)
+      setSelectedFeature(feature);
+    } else {
+      console.log("Feature or feature.properties is null or undefined.");
     }
-
-    if (clickPopup) {
-      clickPopup.remove();
-      clickPopup = null;
-    }
-
-    const popupContent = `
-      <div class="station-popup">
-        <h3>${feature.properties.stop_name}</h3>
-        <p>Stop ID: ${feature.properties.stop_id}</p>
-        ${
-          !bookingTicket
-            ? `<button id="book-ticket-button" class="book-ticket-button">Book Ticket</button>`
-            : ""
-        }
-      </div>
-    `;
-    clickPopup = new Popup({
-      closeButton: false,
-      offset: [0, 0],
-    })
-      .setLngLat(feature.geometry.coordinates)
-      .setHTML(popupContent)
-      .addTo(mapInstance);
-
-    document.getElementById("book-ticket-button").onclick = () =>
-      handleBookTicketClick(feature);
   };
 
-  const reset = () => {
+  useEffect(() => {
+    setHandleStationClick(handleStationClick);
+  }, [setHandleStationClick, handleStationClick]);
+
+  const reset = async () => {
     if (clickPopup) {
       clickPopup.remove();
       clickPopup = null;
@@ -103,15 +80,19 @@ const Map = () => {
     setStartStation(null);
     setEndStation(null);
     setBookingTicket(false);
-    setMapStyle("mapbox://styles/marawan1805/clh7miglu00vh01pg1vr50erd");
-    const map = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: mapStyle,
-      center: [31.2357, 30.0444], // Cairo's longitude and latitude
-      zoom: 12,
-    });
+    setMapStyle("mapbox://styles/marawan1805/clh7obmkt00ph01qt3fz40g7g");
+    setSelectedFeature(null);
+    // remove the map instance
+    if (mapInstance) {
+      mapInstance.remove();
+      setMapInstance(null);
+    }
+
+    // reset the booking step
     setBookingStep(0);
-    setMapInstance(map);
+    setPrice(0);
+    setShortestPath([]);
+
     if (mapInstance.getLayer("path")) {
       // Remove the path layer and source
       mapInstance.removeLayer("path");
@@ -127,13 +108,13 @@ const Map = () => {
         center: [31.2357, 30.0444], // Cairo's longitude and latitude
         zoom: 12,
       });
-
+      setTimeout(1000);
       map.on("load", () => {
         setMapInstance(map);
       });
 
       // Adding hover effect
-      map.on("mousemove", "cairo-metro-stops-1-0uaefr", function (e) {
+      map.on("mousemove", "stops-final", function (e) {
         if (clickPopup) return;
 
         map.getCanvas().style.cursor = "pointer";
@@ -157,7 +138,7 @@ const Map = () => {
           .addTo(map);
       });
 
-      map.on("mouseleave", "cairo-metro-stops-1-0uaefr", function () {
+      map.on("mouseleave", "stops-final", function () {
         map.getCanvas().style.cursor = "";
         if (hoverPopup) hoverPopup.remove();
       });
@@ -184,6 +165,7 @@ const Map = () => {
 
   const handleProceedClick = async () => {
     setBookingStep(2);
+    
     // Only proceed if both stations are selected
     if (startStation && endStation) {
       // Make the API request
@@ -209,15 +191,22 @@ const Map = () => {
       setPrice(price);
     }
   };
-
   useEffect(() => {
+    console.log(bookingStep)
     if (mapInstance) {
+      if(bookingStep>1) return;
+
       mapInstance.on("click", (event) => {
+        if (bookingStep === 2) {
+          return; // Skip the click event handling if in the 'proceed' step
+        }
+        
         const features = mapInstance.queryRenderedFeatures(event.point, {
-          layers: ["cairo-metro-stops-1-0uaefr"],
+          layers: ["stops-final"],
         });
 
         if (features.length > 0) {
+          console.log("Map click features:", features);
           if (bookingTicket) {
             if (
               startStation &&
@@ -225,6 +214,8 @@ const Map = () => {
             ) {
               return;
             }
+            if(isProceed){
+              return;}
             setStartStation(features[0]);
             setBookingTicket(false);
           } else {
@@ -233,7 +224,8 @@ const Map = () => {
         }
       });
     }
-  }, [mapInstance, bookingTicket, startStation]);
+  }, [mapInstance, bookingTicket, startStation, bookingStep]); // Include bookingStep in dependencies
+
 
   function createGeoJSONLine(path) {
     // Create a list of all route points across all stations
@@ -277,26 +269,21 @@ const Map = () => {
         "line-color": "#00b0ff", // Blue color for the line
         "line-width": 8, // Thin line
         "line-blur": 0.5, // Adding a small blur will make the line and resumed at msg4.Rollback."]
-     
       },
     });
   }
 
   useEffect(() => {
     if (mapInstance && startStation && endStation) {
-      mapInstance.setPaintProperty(
-        "cairo-metro-stops-1-0uaefr",
-        "circle-color",
-        [
-          "match",
-          ["get", "stop_id"],
-          endStation.properties.stop_id,
-          "#f00", // red color for end station
-          startStation.properties.stop_id,
-          "#0f0", // green color for start station
-          "#000", // black color for other stations
-        ]
-      );
+      mapInstance.setPaintProperty("stops-final", "icon-opacity", [
+        "match",
+        ["get", "stop_id"],
+        endStation.properties.stop_id,
+        1, // full opacity for end station
+        startStation.properties.stop_id,
+        1, // full opacity for start station
+        0.3, // reduced opacity for other stations
+      ]);
 
       mapInstance.flyTo({
         center: endStation.geometry.coordinates,
@@ -304,23 +291,23 @@ const Map = () => {
         speed: 0.8,
       });
     } else if (mapInstance && endStation) {
-      mapInstance.setPaintProperty(
-        "cairo-metro-stops-1-0uaefr",
-        "circle-color",
-        [
-          "match",
-          ["get", "stop_id"],
-          endStation.properties.stop_id,
-          "#f00", // red color for end station
-          "#000", // black color for other stations
-        ]
-      );
+      // mapInstance.setPaintProperty(
+      //   "stops-final",
+      //   "circle-color",
+      //   [
+      //     "match",
+      //     ["get", "stop_id"],
+      //     endStation.properties.stop_id,
+      //     "#f00", // red color for end station
+      //     "#000", // black color for other stations
+      //   ]
+      // );
 
-      // mapInstance.flyTo({
-      //   center: endStation.geometry.coordinates,
-      //   zoom: 13,
-      //   speed: 0.8,
-      // });
+      mapInstance.flyTo({
+        center: endStation.geometry.coordinates,
+        zoom: 13,
+        speed: 0.8,
+      });
     }
   }, [mapInstance, startStation, endStation]);
 
@@ -334,24 +321,59 @@ const Map = () => {
   return (
     <MapContext.Provider value={{ setMapStyle }}>
       <div className="map-wrapper">
-        <Header />
+        {/* <Header handleStationClick={handleStationClick} /> */}
         <div className="map-container" ref={mapContainer} />
-        {endStation && (
-          <Card className="card" style={{"height":"100%"}}>
-            {endStation && !price && (
-              <CardContent style={{"justifyContent":"center", "alignItems":"center"}}>
-                <LocationCards
-                  startStation={startStation}
-                  setStartStation={setStartStation}
-                  endStation={endStation}
-                  setEndStation={setEndStation}
-                  // allStations={allStations}
+        {selectedFeature && (
+          <Card className="card" style={{ height: "100%" }}>
+            {bookingStep === 0 && (
+              <>
+                <Button
+                  onClick={() => {
+                    setSelectedFeature(null);
+                  }}
+                >
+                  {" "}
+                  BACK
+                </Button>
+                <img
+                  src={selectedFeature.properties.imageUrl}
+                  alt={selectedFeature.properties.stop_name}
+                  style={{ width: "100%", height: "auto" }}
                 />
-
+                <Typography variant="h5">
+                  {selectedFeature.properties.stop_name}
+                </Typography>
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={handleProceedClick}
+                  onClick={() => handleBookTicketClick(selectedFeature)}
+                >
+                  Book Ticket
+                </Button>
+              </>
+            )}
+            {endStation && (
+              <LocationCards
+                startStation={startStation}
+                setStartStation={setStartStation}
+                endStation={endStation}
+                setEndStation={setEndStation}
+                // allStations={allStations}
+              />
+            )}
+            {!price && bookingStep === 1 && (
+              <div
+                style={{
+                  marginTop: "50px",
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                }}
+              >
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={()=>{handleProceedClick();setIsProceed(true);}}
+                  disabled={!startStation} // disable if startStation is not selected
                 >
                   Proceed
                 </Button>
@@ -359,17 +381,23 @@ const Map = () => {
                 <Button variant="outlined" onClick={reset}>
                   Reset
                 </Button>
-              </CardContent>
+              </div>
             )}
             {price > 0 && (
-              <CardContent>
+              <CardContent
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 <Typography variant="h5">Price: {price} EGP</Typography>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleBookTicketClick}
-                >
+                <Link variant="contained" color="primary" to="/payment">
                   Book Ticket
+                </Link>
+                <Button variant="outlined" onClick={reset}>
+                  Cancel
                 </Button>
               </CardContent>
             )}
