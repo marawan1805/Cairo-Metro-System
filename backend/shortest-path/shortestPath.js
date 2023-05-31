@@ -82,13 +82,8 @@ Station.watch().on("change", (data) => {
 Route.watch().on("change", (data) => {
   console.log("Change detected;");
   console.log("Routes collection was changed, updating JSON");
-  PythonShell.run("precompute.py", null, function (err, result) {
-    if (err) throw err;
-    console.log("JSON file updated successfully!");
-
-    // Call the function to regenerate metro_graph_with_routes.json
-    generateMetroGraphWithRoutes();
-  });
+  PythonShell.run("precompute.py");
+  generateMetroGraphWithRoutes();
 });
 
 function distance([x1, y1], [x2, y2]) {
@@ -142,6 +137,7 @@ function findShortestPath(graph, startNode, endNode) {
 
     // Get the part of the route between the start and end stations
     let routePoints;
+    console.log(`// ${routesData[routeId]}`);
     if (startIndex < endIndex) {
       routePoints = routesData[routeId].slice(startIndex, endIndex + 1);
     } else {
@@ -203,7 +199,8 @@ class PriorityQueue {
   }
 }
 
-app.get("/shortest_path", (req, res) => {
+app.get("/shortest_path", async (req, res)  => {
+  await generateMetroGraphWithRoutes();
   const { startStation, endStation } = req.query;
   fs.readFile("metro_graph_with_routes.json", "utf8", (err, jsonString) => {
     if (err) {
