@@ -3,8 +3,8 @@ import { Link as ScrollLink } from "react-scroll";
 import styled from "styled-components";
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import './navbar.css'
-import '../../styles.css'
+import "./navbar.css";
+import "../../styles.css";
 
 const mobileBreakpoint = "768px";
 
@@ -63,7 +63,7 @@ const Modal = styled.div`
 `;
 
 const BlurBackground = styled.div`
-position: ${({ open }) => (open ? "fixed" : "none")};
+  position: ${({ open }) => (open ? "fixed" : "none")};
   top: 0;
   left: 0;
   width: 100%;
@@ -92,9 +92,10 @@ const NavMenu = styled.div`
   }
 `;
 
-const Navbar = () => {
+const Navbar = ({ user }) => {
+  console.log(user)
   const [open, setOpen] = useState(false);
-  const [currentPathName, setCurrentPathName] = useState()
+  const [currentPathName, setCurrentPathName] = useState();
   const toggleModal = () => {
     setOpen(!open);
   };
@@ -107,46 +108,59 @@ const Navbar = () => {
       </a>
     );
   };
-  
-  const location = useLocation()
+
+  const location = useLocation();
 
   useEffect(() => {
-    
-   setCurrentPathName(location.pathname)
+    setCurrentPathName(location.pathname);
+  }, [location.pathname]);
 
-  }, [location.pathname])
-
-  
   return (
     <nav className="navbar">
       <div className="navbar-container">
         <LogoLink href="/"></LogoLink>
 
         <div className="navbar-menu">
-        <ScrollLink
-                className="nav-link"
-                to="services"
-                smooth={true}
-                duration={100}
-                as="li"
-              >
-                Services
-              </ScrollLink>
-          <li >              
-              <Link className='nav-link'  to="/map">Map</Link>
+          <ScrollLink
+            className="nav-link"
+            to="services"
+            smooth={true}
+            duration={100}
+            as="li"
+          >
+            Services
+          </ScrollLink>
+          <li>
+            <Link className="nav-link" to="/map">
+              Map
+            </Link>
           </li>
-          <li >
-            <Link className='nav-link'  to="/map">Book a Ticket</Link>
+          <li>
+            <Link className="nav-link" to="/map">
+              Book a Ticket
+            </Link>
           </li>
-          <li >
-            <Link className='nav-link'  to="/login">Login</Link>
-          </li>
-          <li >
-            <Link className='nav-link'  to="/signup">Signup</Link>
-          </li>
-          <li >
-            <Link className='nav-link'  to="/account">Account</Link>
-          </li>
+          {!user ? 
+            <div>
+              <li>
+                <Link className="nav-link" to="/login">
+                  Login
+                </Link>
+              </li>
+              <li>
+                <Link className="nav-link" to="/signup">
+                  Signup
+                </Link>
+              </li>
+            </div>
+        :
+            <li>
+              <Link className="nav-link" to="/account">
+                Account
+              </Link>
+            </li>
+          }
+          
         </div>
 
         <>

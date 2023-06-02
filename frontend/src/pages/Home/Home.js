@@ -4,13 +4,18 @@ import Hero from "../../components/Hero/Hero";
 import Services from "../../components/Services/Services";
 import Footer from "../../components/Footer/Footer";
 import "../../styles.css";
+import {useLocation} from 'react-router-dom';
 
 const HomePage = () => {
-  return (
+  const location = useLocation();
+    const data = location.state.dat;
+    console.log(data);
+    return (
     <div className="home-page">
       <div className='relative z-0 bg-primary'>
         <div className='bg-hero-pattern bg-cover bg-no-repeat bg-center'>
-      <Hero />
+      {data ?<Hero user={data}></Hero>:<Hero />}
+   
       </div>
       <InView threshold={0.3}>
         {({ inView, ref }) => (
