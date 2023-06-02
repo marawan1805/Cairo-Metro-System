@@ -1,0 +1,8 @@
+.senior-body{
+    margin: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 50vh;
+}

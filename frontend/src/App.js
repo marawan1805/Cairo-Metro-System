@@ -1,3 +1,5 @@
+
+
 import React from "react";
 import './styles.css';
 import "./index.css";
@@ -9,6 +11,9 @@ import Signup from "./pages/Auth/Signup/Signup";
 import Account from "./pages/Account/Account";
 import Payment from "./components/Checkout/Checkout";
 import Metro from "./pages/Metro"
+import Senior from "./pages/SeniorMembership/Senior";
+import TicketsPage from "./pages/Tickets/TicketsPage";
+
 const App = () => {
   return (
     <Router>
@@ -20,6 +25,8 @@ const App = () => {
         <Route path="/account" element={<Account />} />
         <Route path="/payment" element={<Payment/>} />
         <Route path="*" element={<h1>Not Found</h1>} />
+        <Route path="/ticket" element={<TicketsPage/>} />
+        <Route path="/senior" element={<Senior />} />
 
       </Routes>
     </Router>

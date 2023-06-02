@@ -1,0 +1,19 @@
+.tickets-body{
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.tickets-flex{
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.tickets-title{
+    font-weight: bold;
+    font-size: 30px;
+    border-bottom: 3px #212529 solid;
+    padding: 0 50px 5px 50px;
+}
