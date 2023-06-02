@@ -84,6 +84,7 @@ const NavMenu = styled.div`
   .nav-link {
     text-decoration: none;
     cursor: pointer;
+    color: #000000;
   }
 
   @media (max-width: ${mobileBreakpoint}) {

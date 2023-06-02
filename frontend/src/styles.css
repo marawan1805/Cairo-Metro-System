@@ -97,10 +97,11 @@ code {
 .navbar-menu li {
   display: inline;
   margin-left: 20px;
+  width: 80px;
 }
 
 .navbar-menu a {
-  color: #fff;
+  color: black;
   text-decoration: none;
   font-weight: 620;
 }
@@ -433,6 +434,7 @@ code {
   cursor: pointer;
   width: auto;
   text-align: center;
+  color: #000000;
 }
 
 .nav-link-open {

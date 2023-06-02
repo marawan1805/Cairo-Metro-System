@@ -3,7 +3,6 @@ import { useState } from "react";
 import './login.css'
 import { createClient } from "@supabase/supabase-js";
 import Navbar from '../../../components/Navbar/Navbar';
-import ComplexGradientAnimation from '../../../components/Canvas';
 
 function Login() {
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -32,7 +31,6 @@ function Login() {
     <div className='login-body'>
     <Navbar />
 
-    <div><ComplexGradientAnimation/></div>
 
     <div className="login-modal">
     <h2>Login</h2>

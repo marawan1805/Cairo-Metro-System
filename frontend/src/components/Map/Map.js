@@ -170,7 +170,7 @@ const Map = () => {
     if (startStation && endStation) {
       // Make the API request
       const response = await fetch(
-        `http://localhost:3000/shortest_path?startStation=${startStation.properties.stop_name}&endStation=${endStation.properties.stop_name}`
+        `http://18.134.158.73/shortest_path?startStation=${startStation.properties.stop_name}&endStation=${endStation.properties.stop_name}`
       );
       const data = await response.json();
 
