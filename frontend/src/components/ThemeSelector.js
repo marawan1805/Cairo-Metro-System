@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { MapContext } from './Map/Map';
-
+import './ThemeSelector.css'; // add this line if you're using CSS modules
 const ThemeSelector = () => {
   const { setMapStyle } = useContext(MapContext);
 
@@ -11,8 +11,7 @@ const ThemeSelector = () => {
 
   return (
     <div className="theme-selector">
-      <label htmlFor="theme-dropdown">Map Theme: </label>
-      <select id="theme-dropdown" onChange={handleChange}>
+      <select className='select' id="theme-dropdown" onChange={handleChange}>
         <option value="mapbox://styles/marawan1805/clh7miglu00vh01pg1vr50erd">Streets</option>
         <option value="mapbox://styles/marawan1805/clh7obmkt00ph01qt3fz40g7g">Light</option>
         <option value="mapbox://styles/marawan1805/clh7ogv2200un01pgepew5i0c">Dark</option>

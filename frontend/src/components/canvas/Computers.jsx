@@ -49,7 +49,6 @@ const Computers = ({ isMobile }) => {
   );
 };
 
-
 const ComputersCanvas = () => {
   const [isMobile, setIsMobile] = useState(false);
 
@@ -75,27 +74,35 @@ const ComputersCanvas = () => {
   }, []);
 
   return (
-    <div style={{ height: "100vh", width: "100vw" }}>
-    <Canvas
-  frameloop='demand'
+    <div
+      style={{
+        height: "100vh",
+        width: "100vw",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+     <Canvas
+  frameloop="demand"
   shadows
   dpr={[1, 2]}
-  camera={{ position: [40, 6, 10], fov: 85 }} // This line has been updated
+  camera={{ position: [180, -20, 200], fov: 80, near: 0.1, far: 5000 }} // increase far
   gl={{ preserveDrawingBuffer: true }}
 >
+  
+  <Suspense fallback={<CanvasLoader />}>
+    <OrbitControls
+      enableZoom={true} 
+      enablePan={true} 
+      minDistance={10}
+      maxDistance={2000} // increase maxDistance
+    />
+    <Computers isMobile={isMobile} />
+  </Suspense>
+  <Preload all />
+</Canvas>
 
-      <Suspense fallback={<CanvasLoader />}>
-      <OrbitControls
-  enableZoom={true} // This line has been updated
-  maxPolarAngle={Math.PI / 2}
-  minPolarAngle={Math.PI / 2}
-/>
-
-        <Computers isMobile={isMobile} />
-      </Suspense>
-
-      <Preload all />
-    </Canvas>
     </div>
   );
 };

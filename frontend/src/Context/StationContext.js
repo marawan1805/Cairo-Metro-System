@@ -9,16 +9,16 @@ export const StationProvider = ({ children }) => {
   const [handleStationClick, setHandleStationClick] = useState(null);
 
   const fetchStations = () => {
-    fetch("http://localhost:3008/api/admin/")
+    fetch("http://metro-admin-gray.vercel.app/api/admin/")
       .then((response) => response.json())
       .then((data) => {
         setAllStations(data);
-        console.log(data);
+     
       });
   };
 
   return (
-    <StationContext.Provider value={{ allStations, setAllStations, handleStationClick, setHandleStationClick, fetchStations }}>
+    <StationContext.Provider value={{fetchStations, allStations, setAllStations, handleStationClick, setHandleStationClick }}>
       {children}
     </StationContext.Provider>
   );

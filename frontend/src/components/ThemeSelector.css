@@ -1,0 +1,15 @@
+.theme-selector {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    z-index: 1000; /* This will ensure the dropdown is displayed on top of other elements */
+    background-color: #fff;
+    height: 30px;
+  }
+  
+  
+  select {
+    height: 30px;
+    background-color: #fff;
+  }
+  

@@ -24,7 +24,7 @@
 }
 
 html, body, .App {
-  background-color: #fff;
+  background-color: #151719;
 }
 
 body {
@@ -97,10 +97,11 @@ code {
 .navbar-menu li {
   display: inline;
   margin-left: 20px;
+  width: 80px;
 }
 
 .navbar-menu a {
-  color: #fff;
+  color: black;
   text-decoration: none;
   font-weight: 620;
 }

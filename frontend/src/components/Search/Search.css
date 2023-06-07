@@ -20,10 +20,10 @@
   right: 0;
   top: 0;
   z-index: 100;
-  background: #207178;
+  background: #5d5dff;
   cursor: pointer;
 }
 
 .circle-12:hover {
-  background: #174c4f;
+  background: #5450d6;
 }

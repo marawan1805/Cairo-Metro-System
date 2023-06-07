@@ -39,10 +39,10 @@ const Search = ({handleStationClick}) => {
   const [showResults, setShowResults] = useState(false);
 
 const { allStations, fetchStations } = useContext(StationContext);
-
+// console.log(allStations)
 useEffect(() => {
   fetchStations();
-}, []);
+}, [fetchStations]);
 
 
   const handleChange = (event) => {

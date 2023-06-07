@@ -83,7 +83,7 @@ const Modal = styled.div`
 const LogoLink = ({ href, children }) => {
   return (
     <a href={href} className="logo">
-      <img src={logo} alt="logo" />
+      <img src={logo} alt="logo" style={{"width":"80px"}}/>
       {children}
     </a>
   );
