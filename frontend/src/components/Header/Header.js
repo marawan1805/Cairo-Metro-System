@@ -1,15 +1,14 @@
 import React, { useContext } from "react";
 import "./Header.css";
-import Menu from "../Menu";
 import Search from "../Search/Search";
+import Head from "../../ui/ui/header";
 
-
-const Header = ({handleStationClick}) => {
+const Header = ({handleStationClick, handleSearchClick}) => {
   return (
     <header className="header">
       <div className="header-container">
-        <Menu />
-        <Search handleStationClick={handleStationClick} />
+        <Search handleStationClick={handleStationClick} handleSearchClick={handleSearchClick} />
+        <Head/>
       </div>
     </header>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./payment.scss";
+import "./payment.css";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 

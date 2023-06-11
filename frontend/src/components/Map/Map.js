@@ -7,14 +7,20 @@ import React, {
 } from "react";
 import mapboxgl, { Popup } from "mapbox-gl";
 import "./Map.css";
-import Menu from "../Menu";
 import ThemeSelector from "../ThemeSelector";
 import Header from "../Header/Header";
 import LocationCards from "./LocationCards";
 import { Button, Card, CardContent, Typography, Grid } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { StationContext } from "../../Context/StationContext";
 import { StationProvider } from "../../Context/StationContext";
+import ProceedCard from "./ProceedCard";
+import Lottie from "react-lottie";
+import animationData from "./mettroos.json"; // import your animation file
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useUser } from "../../Context/UserContext";
+import { List, ListItem, ListItemText } from "@mui/material";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoibWFyYXdhbjE4MDUiLCJhIjoiY2xoN2tlaXc2MGg4MDNlczZlNjl1cGlvbiJ9.z1IvnyHR-Uo83BIeuuIZBQ";
@@ -23,7 +29,7 @@ export const MapContext = createContext();
 
 const Map = () => {
   const { allStations } = useContext(StationContext);
-
+  const navigate = useNavigate();
   const [jsonToGeoJson, setJsonToGeoJson] = useState(null);
   const mapContainer = useRef(null);
   const [mapInstance, setMapInstance] = useState(null);
@@ -31,8 +37,10 @@ const Map = () => {
   const [endStation, setEndStation] = useState(null);
   const [price, setPrice] = useState(0);
   const [mapStyle, setMapStyle] = useState(
-    "mapbox://styles/marawan1805/clh7obmkt00ph01qt3fz40g7g"
+    localStorage.getItem("selectedTheme") ||
+      "mapbox://styles/marawan1805/clh7obmkt00ph01qt3fz40g7g"
   );
+  const [middleStations, setMiddleStations] = useState([]);
   const [shortestPath, setShortestPath] = useState([]);
   const [isProceed, setIsProceed] = useState(false);
   // Hover popup
@@ -40,10 +48,17 @@ const Map = () => {
   // Click popup
   let clickPopup = null;
 
+  const { user, setUser } = useUser();
+
   const [bookingTicket, setBookingTicket] = useState(false);
   const [bookingStep, setBookingStep] = useState(0);
   const { setHandleStationClick } = useContext(StationContext);
   const [selectedFeature, setSelectedFeature] = useState(null);
+  const [searchClick, setSearchClick] = useState(false);
+
+  // if (localStorage.getItem("user")) {
+  //   setUser(JSON.parse(localStorage.getItem("user")));
+  // }
 
   const handleBookTicketClick = (feature) => {
     if (bookingTicket) {
@@ -61,12 +76,12 @@ const Map = () => {
   };
 
   const handleStationClick = (feature) => {
-    console.log(feature);
     if (feature && feature.properties) {
       if (bookingStep < 2) setSelectedFeature(feature);
     } else {
       console.log("Feature or feature.properties is null or undefined.");
     }
+    setSearchList([]);
   };
 
   // useEffect(() => {
@@ -81,7 +96,13 @@ const Map = () => {
     setStartStation(null);
     setEndStation(null);
     setBookingTicket(false);
-    setMapStyle("mapbox://styles/marawan1805/clh7obmkt00ph01qt3fz40g7g");
+
+    // Retrieve the last selected theme from the localStorage, or use a default value
+    const lastSelectedTheme =
+      localStorage.getItem("selectedTheme") ||
+      "mapbox://styles/marawan1805/clh7obmkt00ph01qt3fz40g7g";
+    setMapStyle(lastSelectedTheme);
+
     setSelectedFeature(null);
     // remove the map instance
     if (mapInstance) {
@@ -93,58 +114,107 @@ const Map = () => {
     setBookingStep(0);
     setPrice(0);
     setShortestPath([]);
-    setStartStation(null);
+    setIsProceed(false);
+
+    // reset the hover popup
+    if (hoverPopup) {
+      hoverPopup.remove();
+      hoverPopup = null;
+    }
 
   };
 
+  // Inside your component
+  const addLayerToMap = async (map) => {
+    try {
+      const stationsRes = await fetch(
+        "http://metro-admin-gray.vercel.app/api/admin/geoJSON"
+      );
+      const geoJsonStations = await stationsRes.json();
+
+      const routesRes = await fetch(
+        "http://metro-admin-gray.vercel.app/api/admin/Routesgeojson"
+      );
+      const geoJsonRoutes = await routesRes.json();
+
+      // Check if the source already exists
+      if (map.getSource("stations-with-routes-1wpdf9")) {
+        // If it does, update it
+        map.getSource("stations-with-routes-1wpdf9").setData(geoJsonStations);
+      } else {
+        // If it doesn't, add the source
+        map.addSource("stations-with-routes-1wpdf9", {
+          type: "geojson",
+          data: geoJsonStations,
+        });
+
+        map.addSource("rouutteess", {
+          type: "geojson",
+          data: geoJsonRoutes,
+        });
+
+        map.addLayer({
+          id: "rouutteess",
+          type: "line",
+          source: "rouutteess",
+          paint: {
+            "line-color": [
+              "match",
+
+              ["get", "route_id"],
+              "L1",
+              "#f2d00d",
+              "L2",
+              "#e60f0d",
+              "L3",
+              "#0fbb0c",
+              "black", // fallback color if none of the conditions are met
+            ],
+            "line-width": 3,
+          },
+        });
+        // Add the layer
+        map.addLayer({
+          id: "stations-with-routes-1wpdf9",
+          type: "circle",
+          source: "stations-with-routes-1wpdf9",
+          paint: {
+            "circle-color": [
+              "match",
+              ["get", "route_id"],
+              "L1",
+              "#f2d00d",
+              "L2",
+              "#e60f0d",
+              "L3",
+              "#0fbb0c",
+              "black", // fallback color if none of the conditions are met
+            ],
+            "circle-radius": 5,
+          },
+        });
+      }
+    } catch (error) {
+      console.error("Error fetching stations data: ", error);
+    }
+  };
+
+  // When mapInstance is created
   useEffect(() => {
     if (!mapInstance) {
+      const lastSelectedTheme =
+        localStorage.getItem("selectedTheme") ||
+        "mapbox://styles/marawan1805/clh7obmkt00ph01qt3fz40g7g";
+
       const map = new mapboxgl.Map({
         container: mapContainer.current,
-        style: mapStyle,
+        style: lastSelectedTheme,
         center: [31.2357, 30.0444], // Cairo's longitude and latitude
         zoom: 12,
       });
-      setTimeout(1000);
 
       map.on("load", async () => {
-        try {
-
-          const response = await fetch("http://metro-admin-gray.vercel.app/api/admin/geoJSON");
-          const geoJsonStations = await response.json();
-      
-          map.addSource("stations-with-routes-1wpdf9", {
-            type: "geojson",
-            data: geoJsonStations,
-          });
-
-          // Now you can add the layer here after the source has been added
-          map.addLayer({
-            id: "stations-with-routes-1wpdf9",
-            type: "circle",
-            source: "stations-with-routes-1wpdf9",
-            paint: {
-              "circle-color": [
-                "match",
-                ["get", "route_id"],
-                "L1",
-                "#f2d00d",
-                "L2",
-                "black",
-                "L3",
-                "black",
-                "black", // fallback color if none of the conditions are met
-              ],
-              "circle-radius": 5,
-            },
-          });
-        } catch (error) {
-          console.error("Error fetching stations data: ", error);
-        }
-      });
-
-
-      map.on("load", () => {
+        await addLayerToMap(map);
         setMapInstance(map);
       });
 
@@ -191,6 +261,19 @@ const Map = () => {
     };
   }, [mapStyle, mapInstance]);
 
+  useEffect(() => {
+    if (mapInstance) {
+      mapInstance.setStyle(mapStyle);
+      mapInstance.once("styledata", async () => {
+        await addLayerToMap(mapInstance);
+        // If there is a path, draw it again
+        if (shortestPath.length > 0) {
+          drawPathOnMap(mapInstance, shortestPath);
+        }
+      });
+    }
+  }, [mapStyle, mapInstance]);
+
   const calculatePrice = (num) => {
     if (!shortestPath) return 0;
     if (num <= 9) return 5;
@@ -206,6 +289,8 @@ const Map = () => {
         `http://18.134.158.73/shortest_path?startStation=${startStation.properties.stop_name}&endStation=${endStation.properties.stop_name}`
       );
       const data = await response.json();
+      console.log(data.path);
+      setMiddleStations(data.path);
       // Set the shortest path
       setShortestPath(
         data.path.map((station) => ({
@@ -303,38 +388,24 @@ const Map = () => {
   }
 
   useEffect(() => {
-    if (mapInstance && startStation && endStation) {
-      // mapInstance.setPaintProperty(
-      //   "stations-with-routes-1wpdf9",
-      //   "circle-color",
-      //   [
-      //     "match",
-      //     ["get", "stop_id"],
-      //     startStation.properties.stop_id,
-      //     "#008000",
-      //   ]
-      // );
-
-      mapInstance.flyTo({
-        center: endStation.geometry.coordinates,
-        zoom: 12,
-        speed: 0.8,
-      });
-    } else if (mapInstance && endStation) {
+    if (mapInstance && (startStation || endStation)) {
       mapInstance.setPaintProperty(
         "stations-with-routes-1wpdf9",
-        "circle-color",
+        "circle-radius",
         [
-          "match",
-          ["get", "stop_id"],
-          endStation.properties.stop_id,
-          "#f00", // red color for end station
-          "#000", // black color for other stations
+          "case",
+          ["==", ["get", "stop_id"], startStation?.properties?.stop_id],
+          10, // this is the new radius for startStation
+          ["==", ["get", "stop_id"], endStation?.properties?.stop_id],
+          10, // this is the new radius for endStation
+          5, // default radius when not clicked
         ]
       );
 
+      // Fly to the most recently clicked station
+      const stationToFlyTo = startStation || endStation;
       mapInstance.flyTo({
-        center: endStation.geometry.coordinates,
+        center: stationToFlyTo.geometry.coordinates,
         zoom: 13,
         speed: 0.8,
       });
@@ -348,14 +419,90 @@ const Map = () => {
     }
   }, [mapInstance, shortestPath]);
 
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    // rendererSettings: {
+    //   preserveAspectRatio: "xMidYMid slice",
+    // },
+  };
+
+  const handleBook = () => {
+    if (user === null) {
+      // alert("Please Login First") using toast
+      toast.error("Please Login First");
+    } else {
+      // navigate to payment page and pass price as state
+      navigate("/payment", {
+        state: {
+          price: price,
+          startLocation: startStation,
+          transferStations: shortestPath,
+        },
+      });
+    }
+  };
+
+  const [searchList, setSearchList] = useState([]);
+
+  const handleSearchClick = (searchResults) => {
+    setSelectedFeature(null);
+    setSearchList(searchResults);
+  };
+
   return (
     <>
-      {" "}
-      <Header handleStationClick={handleStationClick} />
+      <ToastContainer />{" "}
+      <Header
+        handleStationClick={handleStationClick}
+        handleSearchClick={handleSearchClick}
+      />
       <MapContext.Provider value={{ setMapStyle }}>
         <div className="map-wrapper">
           {/* <Header handleStationClick={handleStationClick} /> */}
           <div className="map-container" ref={mapContainer} />
+          {searchList.length > 0 && (
+            <Card
+              style={{
+                height: "100%",
+                overflow: "auto",
+                width: "350px",
+                background: "transparent",
+                padding: "20px",
+                position: "absolute",
+                backgroundColor: "white",
+                boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.2)", // add a little box shadow
+                borderRadius: "5px", // add border radius
+              }}
+            >
+              <List style={{ marginTop: "50px" }}>
+                {searchList.map((station) => (
+                  <ListItem
+                    button
+                    key={station.id}
+                    onClick={() => {
+                      let feature = {
+                        _id: station._id,
+                        FID: station.FID,
+                        fid: station.fid,
+                        geometry: {
+                          coordinates: station.geometry.coordinates,
+                        },
+                        properties: {
+                          stop_id: station.stop_id,
+                          stop_name: station.stop_name,
+                        },
+                      };
+                      handleStationClick(feature);
+                    }}
+                  >
+                    <ListItemText primary={station.stop_name} />
+                  </ListItem>
+                ))}
+              </List>
+            </Card>
+          )}
 
           {selectedFeature && (
             <Card
@@ -365,7 +512,6 @@ const Map = () => {
                 width: "350px",
                 background: "transparent",
                 padding: "20px",
-                height: "100%",
                 position: "absolute",
                 backgroundColor: "white",
               }}
@@ -376,28 +522,46 @@ const Map = () => {
                     onClick={() => {
                       setSelectedFeature(null);
                     }}
+                    color="primary"
+                    style={{
+                      position: "absolute",
+                      top: "22px",
+                      right: "10px",
+                      zIndex: 1000,
+                    }}
                   >
-                    {" "}
                     BACK
                   </Button>
-                  <img
-                    src={selectedFeature.properties.imageUrl}
-                    alt={selectedFeature.properties.stop_name}
-                    style={{ width: "100%", height: "auto" }}
-                  />
-                  <Typography variant="h5">
-                    {selectedFeature.properties.stop_name}
-                  </Typography>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleBookTicketClick(selectedFeature)}
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
                   >
-                    Book Ticket
-                  </Button>
+                    <Lottie
+                      options={defaultOptions}
+                      height={300}
+                      width={300}
+                      style={{ marginTop: "30px" }}
+                    />
+                    <Typography variant="h5">
+                      {selectedFeature.properties.stop_name}
+                    </Typography>
+                    <span style={{ height: "12px" }} />
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => handleBookTicketClick(selectedFeature)}
+                    >
+                      Book Ticket
+                    </Button>
+                  </div>
                 </>
               )}
-              {endStation && (
+
+              {endStation && price === 0 && (
                 <LocationCards
                   startStation={startStation}
                   setStartStation={setStartStation}
@@ -406,53 +570,75 @@ const Map = () => {
                   // allStations={allStations}
                 />
               )}
-              {/* {!price && bookingStep === 1 && ( */}
-              <div
-                style={{
-                  marginTop: "50px",
-                  display: "flex",
-                  justifyContent: "space-evenly",
-                }}
-              >
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => {
-                    handleProceedClick();
-                    setIsProceed(true);
-                  }}
-                  disabled={!startStation} // disable if startStation is not selected
-                >
-                  Proceed
-                </Button>
-
-                <Button variant="outlined" onClick={reset}>
-                  Reset
-                </Button>
-              </div>
-              {/* )} */}
-              {price !== 0 && (
-                <CardContent
+              {!price && bookingStep === 1 && (
+                <div
                   style={{
+                    position: "absolute",
+                    bottom: 40,
                     display: "flex",
-                    flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
-                    backgroundColor: "#151719",
-                    position: "absolute",
-                    bottom: 0,
-                    width: "350px",
+                    marginLeft: "auto",
+                    marginRight: "auto",
                     left: 0,
+                    right: 0,
                   }}
                 >
-                  <Typography variant="h5">Price: {price} EGP</Typography>
-                  <Link variant="contained" color="primary" to="/payment">
-                    Book Ticket
-                  </Link>
-                  <Button variant="outlined" onClick={reset}>
-                    Cancel
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => {
+                      handleProceedClick();
+                      setIsProceed(true);
+                    }}
+                    disabled={!startStation} // disable if startStation is not selected
+                  >
+                    Proceed
                   </Button>
-                </CardContent>
+                  <span style={{ width: "12px" }} />
+                  <Button variant="outlined" onClick={reset}>
+                    Reset
+                  </Button>
+                </div>
+              )}
+              {price !== 0 && (
+                <>
+                  <ProceedCard
+                    startStation={startStation}
+                    setStartStation={setStartStation}
+                    endStation={endStation}
+                    setEndStation={setEndStation}
+                    middleStations={middleStations}
+                    // allStations={allStations}
+                  />
+                  <CardContent
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      position: "absolute",
+                      bottom: 0,
+                      width: "350px",
+                      left: 0,
+                    }}
+                  >
+                    <Typography color="primary" variant="h5">Price: {price} EGP</Typography>
+                    <div style={{ marginTop:"10px",display: "flex"}} >
+                    <Button
+                      variant="contained"
+                      onClick={handleBook}
+                      color="primary"
+                    >
+                      Book Ticket
+                    </Button>
+                    <span style={{ width: "12px" }} />
+                    <Button variant="outlined" color="primary" onClick={reset}>
+                      Cancel
+                    </Button>
+                    </div>
+                  </CardContent>
+                </>
               )}
             </Card>
           )}

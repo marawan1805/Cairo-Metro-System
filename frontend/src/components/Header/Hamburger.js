@@ -53,10 +53,11 @@ export default function MobileMenu({ alwaysVisible }) {
     // Clear user from context
     setUser(null);
 
-    // navigate("/");
+    // Redirect to home or any other page
+    navigate("/");
   };
   return (
-    <div className={alwaysVisible ? "" : "md:hidden"}>
+    <div style={{position:"absolute", zIndex:1000, right:20, top:20}}>
       {/* Hamburger button */}
       <button
         ref={trigger}
@@ -155,15 +156,6 @@ export default function MobileMenu({ alwaysVisible }) {
                 onClick={() => setMobileNavOpen(false)}
               >
                 Subscription
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/account"
-                className="flex font-medium w-full text-purple-600 hover:text-gray-200 py-2 justify-center"
-                onClick={() => setMobileNavOpen(false)}
-              >
-                My Profile
               </Link>
             </li>
 

@@ -70,8 +70,12 @@ import PageIllustration from "../../ui/page-illustration";
 import Footer from "../../ui/ui/footer";
 import { GlobalStyle, StyledH1 } from '../../globalStyles.js';
 import '../../styles.css'
+import { useUser } from "../../Context/UserContext";
 
 export default function Home() {
+  const { user } = useUser();
+
+  console.log(user)
   useEffect(() => {
     AOS.init({
       once: true,
@@ -98,7 +102,7 @@ export default function Home() {
       />
     <GlobalStyle />
         <div className="flex flex-col min-h-screen overflow-hidden">
-          <Header />
+          <Header user={user}/>
           <main className="grow">
             <PageIllustration />
 

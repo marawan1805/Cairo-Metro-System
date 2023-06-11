@@ -7,6 +7,7 @@ const ThemeSelector = () => {
   const handleChange = (event) => {
     const style = event.target.value;
     setMapStyle(style);
+    localStorage.setItem('selectedTheme', style);
   };
 
   return (

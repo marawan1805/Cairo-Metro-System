@@ -2,7 +2,7 @@ import "./Search.css";
 
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import {StationContext} from "../../Context/StationContext";
+import { StationContext } from "../../Context/StationContext";
 
 const SearchBoxStyled = styled.div`
   .search-box {
@@ -23,6 +23,9 @@ const SearchBoxStyled = styled.div`
   .search-box:hover {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
+  .search-box input:focus {
+    outline: none;
+  }
   .search-results {
     background-color: #fff;
     position: absolute;
@@ -32,18 +35,27 @@ const SearchBoxStyled = styled.div`
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 99;
   }
+  .search-results div {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    color: #333;
+  }
+  .search-results div:hover {
+    background: #ddd;
+  }
 `;
-const Search = ({handleStationClick}) => {
+
+const Search = ({ handleStationClick, handleSearchClick }) => {
   const [searchResults, setSearchResults] = useState([]);
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState("");
   const [showResults, setShowResults] = useState(false);
 
-const { allStations, fetchStations } = useContext(StationContext);
-// console.log(allStations)
-useEffect(() => {
-  fetchStations();
-}, [fetchStations]);
-
+  const { allStations, fetchStations } = useContext(StationContext);
+  // console.log(allStations)
+  useEffect(() => {
+    fetchStations();
+  }, [fetchStations]);
 
   const handleChange = (event) => {
     const query = event.target.value.toLowerCase();
@@ -56,31 +68,34 @@ useEffect(() => {
   };
 
   const handleResultClick = (station) => {
-    console.log('Search result click station:', station);
-    setSearchInput('');
+    console.log("Search result click station:", station);
+    setSearchInput("");
     setShowResults(false);
-  
+
     // Parse coordinates from the geometry string
-    let coordinates = station.geometry.replace("POINT (", "").replace(")", "").split(" ").map(Number);
-  
+    let coordinates = station.geometry
+      .replace("POINT (", "")
+      .replace(")", "")
+      .split(" ")
+      .map(Number);
+
     // Create a feature-like object to pass to handleStationClick
     let feature = {
       _id: station._id,
       FID: station.FID,
       fid: station.fid,
       geometry: {
-        coordinates: coordinates
+        coordinates: coordinates,
       },
       properties: {
         stop_id: station.stop_id,
-        stop_name: station.stop_name
-      }
+        stop_name: station.stop_name,
+      },
     };
-  
+
     handleStationClick(feature);
-  }
-  
-  
+  };
+
   return (
     <SearchBoxStyled>
       <div className="search-box">
@@ -90,7 +105,6 @@ useEffect(() => {
           value={searchInput}
           style={{
             border: "none",
-
             outline: "none",
             fontSize: "16px",
             width: "90%",
@@ -98,15 +112,19 @@ useEffect(() => {
             zIndex: "100",
           }}
           onChange={handleChange}
+          onKeyPress={(event) => {
+            if (event.key === "Enter") {
+              handleSearchClick(searchResults);
+              setSearchResults([]);
+              setSearchInput("");
+            }
+          }}
         />
-     
+
         {showResults && (
           <div className="search-results">
             {searchResults.map((station) => (
-              <div
-                key={station.id}
-                onClick={() => handleResultClick(station)}
-              >
+              <div key={station.id} onClick={() => {handleResultClick(station)}}>
                 {station.stop_name}
               </div>
             ))}
@@ -130,6 +148,11 @@ useEffect(() => {
             aria-hidden="true"
             role="presentation"
             focusable="false"
+            onClick={() => {
+              handleSearchClick(searchResults);
+              setSearchResults([]);
+              setSearchInput("");
+            }}
           >
             <g fill="none">
               <path d="m13 24c6.0751322 0 11-4.9248678 11-11 0-6.07513225-4.9248678-11-11-11-6.07513225 0-11 4.92486775-11 11 0 6.0751322 4.92486775 11 11 11zm8-3 9 9"></path>

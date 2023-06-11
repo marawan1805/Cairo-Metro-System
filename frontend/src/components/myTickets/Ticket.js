@@ -1,20 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Ticket.css";
-import { Button, ThemeProvider, createTheme } from "@mui/material";
+import {
+  Button,
+  ThemeProvider,
+  createTheme,
+  Modal,
+  TextField,
+} from "@mui/material";
 import { Link } from "react-router-dom";
+import { useUser } from "../../Context/UserContext";
+import Skeleton from "@mui/material/Skeleton";
+import Stack from "@mui/material/Stack";
+import { ToastContainer, toast } from "react-toastify";
 
-const { useState } = React;
-
-const Ticket = () => {
-  // const { value } = props;
+const Ticket = ({ tripData }) => {
   const [active, handleActive] = useState(false);
-  // const match = value.Ticket.Match;
-  // const day = match.Date.substring(0, 10);
-  // const tiime = match.Date.substring(11, 19);
+  const [open, setOpen] = useState(false);
+  const [description, setDescription] = useState("");
+  const { user } = useUser();
 
-  const match = 'match';
-  const day = 'day'
-  const tiime = 'time'
+  const LoadingSkeleton = () => (
+    <Stack
+      spacing={10}
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Stack
+        spacing={10}
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Stack spacing={1} />
+
+        <Stack spacing={1}>
+          <Skeleton
+            variant="text"
+            sx={{ fontSize: "1rem", bgcolor: "lightgray" }}
+          />
+          <Skeleton
+            variant="rectangular"
+            width={410}
+            height={100}
+            sx={{ bgcolor: "lightgray" }}
+          />
+        </Stack>
+        <Stack spacing={1} />
+      </Stack>
+      <Stack spacing={1} />
+    </Stack>
+  );
 
   const theme = createTheme({
     components: {
@@ -24,18 +60,48 @@ const Ticket = () => {
           // Name of the slot
           root: {
             // Some CSS
-            backgroundColor:'grey',
-            ":hover":{
-              backgroundColor:'grey'
-            }
+            backgroundColor: "grey",
+            ":hover": {
+              backgroundColor: "grey",
+            },
           },
         },
       },
     },
   });
 
+  if (!tripData) {
+    return <LoadingSkeleton />;
+  }
+
+  const handleRefund = async () => {
+    setOpen(false);
+
+    const url = "https://metro-user.vercel.app/api/user/refund";
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: user.id,
+        description: description,
+        tripId: tripData.id,
+      }),
+    };
+
+    const response = await fetch(url, options);
+    const data = await response.json();
+    if (data.error) {
+      toast.error(data.error);
+    } else if(response === "A refund request already exists for this trip.") {
+      toast.error(response);
+    } else {
+      toast.success("Refund request sent successfully");
+    }
+  };
+
   return (
     <>
+    <ToastContainer />
       <div
         id="cardContainer"
         style={{
@@ -51,27 +117,19 @@ const Ticket = () => {
             <div id="detailLabel" style={{ fontWeight: "bold" }}>
               From
             </div>
-            hi
+            {tripData.startLocation}
           </div>
-
-          <div id="flightDetail">
-            <div id="detailLabel" style={{ fontWeight: "bold" }}>
-              To
+          {tripData.transferStations && (
+            <div id="flightDetail">
+              <div id="detailLabel" style={{ fontWeight: "bold" }}>
+                To
+              </div>
+              <div id="detailLabel">
+                {" "}
+                {tripData.transferStations.join(", ")}
+              </div>
             </div>
-            bye
-          </div>
-
-          <div id="flightDetail">
-          <ThemeProvider theme={theme}>
-            <Button variant="contained">
-            <Link className='account-link' to='/ticket'>
-              Apply for refund
-            </Link>
-            </Button>
-          </ThemeProvider>
-
-          </div>
-
+          )}
         </div>
         <div
           id="first"
@@ -84,9 +142,10 @@ const Ticket = () => {
         >
           <div id="firstTop">
             <div style={{ width: "40px" }}></div>
+
             <div>
-              Category:
-              <span> 4</span>
+              Ticket ID:
+              <span>{tripData.id}</span>
             </div>
             <div
               style={{
@@ -96,40 +155,42 @@ const Ticket = () => {
               }}
             ></div>
             <div
-              style={{
-                marginRight: "10px",
-              }}
+              id="flightDetail"
+              style={{ marginRight: "40px", fontWeight: "bold" }}
             >
-              Ticket ID:
-              <span> 1234</span>
+              <div
+                id="detailLabel"
+                style={{ marginRight: "40px", fontWeight: "bold" }}
+              >
+                Status
+              </div>
+              {tripData.status}
             </div>
           </div>
           <div id="firstBehind">
             <div id="firstBehindDisplay">
               <div id="firstBehindRow">
                 <div id="detail">
-4                  <div id="detailLabel">Round</div>
+                  {tripData.purchasedAt.split("T")[0]}{" "}
+                  <div id="detailLabel">Date</div>
                 </div>
                 <div id="detail">
-                  {tiime}
+                  {tripData.purchasedAt.split("T")[1]}{" "}
                   <div id="detailLabel">Time</div>
                 </div>
               </div>
+
               <div id="firstBehindRow">
-                <div id="detail">
-qatar                  <div id="detailLabel">Location</div>
-                </div>
-                <div id="detail">
-20/20/2022                  <div id="detailLabel">Date</div>
-                </div>
-              </div>
-              <div id="firstBehindRow">
-                <div id="detail">
-2pm                  <div id="detailLabel">Gate Opens</div>
-                </div>
-                <div id="detail">
-                  g2
-                  <div id="detailLabel">Group</div>
+                <div id="flightDetail">
+                  <ThemeProvider theme={theme}>
+                    <Button
+                      style={{ width: "130px" }}
+                      variant="contained"
+                      onClick={() => setOpen(true)}
+                    >
+                      Apply for refund
+                    </Button>
+                  </ThemeProvider>
                 </div>
               </div>
             </div>
@@ -146,12 +207,11 @@ qatar                  <div id="detailLabel">Location</div>
               <div id="secondBehind">
                 <div id="secondBehindDisplay">
                   <div id="price">
-                    $23
+                    {tripData.totalPrice} EGP
                     <div id="priceLabel">Ticket Price</div>
                   </div>
                   <div id="price">
-                    5
-                    <div id="priceLabel">Category</div>
+                    5<div id="priceLabel">Category</div>
                   </div>
                   <img
                     id="barCode"
@@ -163,6 +223,57 @@ qatar                  <div id="detailLabel">Location</div>
           </div>
         </div>
       </div>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <div
+          style={{
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            position: "absolute",
+            width: 400,
+            backgroundColor: "white",
+            padding: "20px",
+          }}
+        >
+          <h2 id="modal-modal-title" style={{ color: "black" }}>
+            Apply for refund
+          </h2>
+          <p id="modal-modal-description" style={{ color: "black" }}>
+            Please enter a reason for the refund:
+          </p>
+          <TextField
+            fullWidth
+            multiline
+            rows={4}
+            variant="outlined"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginTop: "20px",
+            }}
+          >
+            <Button variant="outlined" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+            <Button
+              variant="contained"
+              onClick={handleRefund}
+              style={{ backgroundColor: "purple", color: "white" }}
+            >
+              Confirm refund
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </>
   );
 };

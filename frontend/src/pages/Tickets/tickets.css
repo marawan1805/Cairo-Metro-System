@@ -1,8 +1,10 @@
-.tickets-body{
+.tickets-body {
     display: grid;
-    grid-template-columns: auto auto;
-}
-
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    justify-items: end;
+    gap: 20px;
+  }
+  
 .tickets-flex{
     margin-top: 40px;
     display: flex;
@@ -17,3 +19,14 @@
     border-bottom: 3px #212529 solid;
     padding: 0 50px 5px 50px;
 }
+
+/* Media query for screens larger than 768px */
+@media (min-width: 900px) {
+    .tickets-body{
+        grid-template-columns: 2fr 3fr 2fr;
+        gap: 15px;
+        margin-left: 70px;
+    }
+}
+
+

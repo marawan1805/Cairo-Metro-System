@@ -5,78 +5,9 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { makeStyles } from "@material-ui/core/styles";
-import metro from '../assets/images/metro.gif'
-
-const ComputersCanvas = React.lazy(() =>
-  import("../components/canvas/Computers")
-);
-
-const useStyles = makeStyles({
-  root: {
-    flexGrow: 1,
-  },
-  tabs: {
-    justifyContent: "center",
-  },
-  selected: {
-    color: "purple",
-  },
-});
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
+import metro from "../assets/images/metro.gif";
 
 export default function Hero() {
-  const [value, setValue] = React.useState(0);
-  const [isLoaded, setIsLoaded] = React.useState(false);
-  const [ComputersCanvas, setComputersCanvas] = React.useState(
-    () => () => null
-  );
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  React.useEffect(() => {
-    import("../components/canvas/Computers")
-      .then((module) => {
-        setComputersCanvas(() => module.default);
-        setIsLoaded(true);
-      })
-      .catch((error) => {
-        console.error("Failed to load ComputersCanvas:", error);
-      });
-  }, []);
-
   return (
     <section>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
@@ -123,29 +54,29 @@ export default function Hero() {
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
             <div className="typewriter">
               <h1 className="h1 mb-4" data-aos="fade-up">
-                Fast, Convenient, and Reliable</h1>
+                Fast, Convenient, and Reliable
+              </h1>
             </div>
             <p
               className="text-xl text-gray-400 mb-8"
               data-aos="fade-up"
               data-aos-delay="200"
             >
-              Our landing page template works on all devices, so you only have
-              to set it up once, and get beautiful results forever.
+              Metro is the best way to get around the city.
             </p>
             <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
               <div data-aos="fade-up" data-aos-delay="400">
                 <a
                   className="btn text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0"
-                  href="#0"
+                  href="/map"
                 >
-                  Start free trial
+                  Get started
                 </a>
               </div>
               <div data-aos="fade-up" data-aos-delay="600">
                 <a
                   className="btn text-white bg-gray-700 hover:bg-gray-800 w-full sm:w-auto sm:ml-4"
-                  href="#0"
+                  href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwj58-aYm7r_AhXuaqQEHeRsA0YQFnoECBAQAQ&url=https%3A%2F%2Fcairometro.gov.eg%2Fen&usg=AOvVaw0BCViSqo2TXDLlxd3zSI2n"
                 >
                   Learn more
                 </a>
@@ -154,34 +85,15 @@ export default function Hero() {
           </div>
 
           <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
-            {/* <TabPanel value={value} index={0}>
-              <React.Suspense fallback={<div>Loading...</div>}>
-                {isLoaded && <ComputersCanvas />}
-              </React.Suspense>
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              <React.Suspense fallback={<div>Loading...</div>}>
-                {isLoaded && <ComputersCanvas />}
-              </React.Suspense>
-            </TabPanel> */}
-
-            {/* <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="simple tabs example"
-            >
-              <Tab label="Tab 1" {...a11yProps(0)} />
-              <Tab label="Tab 2" {...a11yProps(1)} />
-            </Tabs> */}
-            
-               {/* Video thumbnail */}
-      <div>
-        <div className="relative flex justify-center items-center" data-aos="fade-up" data-aos-delay="200">
-          <img src={metro} alt="metro" />
-          
-        </div>
-      </div>
-      {/* End: Video thumbnail */}
+            <div>
+              <div
+                className="relative flex justify-center items-center"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              >
+                <img src={metro} alt="metro" />
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -22,7 +22,8 @@
     color: rgb(34, 34, 34);
     font-weight: bold;
     font-size: 20px;
-    width:420px;
+    width:100%; /* responsive width */
+    max-width:420px; /* maximum width */
     height: 46px;
     text-align: center;
     margin-top: 30px;
@@ -30,6 +31,10 @@
     letter-spacing: 1px;
   }
   
+  #headerInput, #first, #firstTop, #firstBehind, #firstBehindRow, #second, #secondTop, #thirdTop, #secondBehind, #secondBehindDisplay, #secondBehindBottom, #third {
+    width: 100%; /* responsive width */
+    max-width:420px; /* maximum width */
+  }
   #tripDetail {
     display: flex;
     flex-direction: column;
@@ -78,15 +83,15 @@
   
   #cardContainer {
     position: relative;
-    width:420px;
+    width:100%; /* responsive width */
+    max-width:420px; /* maximum width */
     height: 100px;
     /* background: rgb(194, 194, 194); */
     border-radius: 5px;
     transform-origin: bottom;
     margin: 20px;
-      cursor: pointer;
-      flex-wrap: wrap;
-
+    cursor: pointer;
+    flex-wrap: wrap;
   }
 
   #first {
