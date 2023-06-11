@@ -289,7 +289,7 @@ const Map = () => {
 
     if (startStation && endStation) {
       const response = await fetch(
-        `http://18.134.158.73/shortest_path?startStation=${startStation.properties.stop_name}&endStation=${endStation.properties.stop_name}`
+        `https://18.134.158.73/shortest_path?startStation=${startStation.properties.stop_name}&endStation=${endStation.properties.stop_name}`
       );
       const data = await response.json();
       console.log(data.path);
