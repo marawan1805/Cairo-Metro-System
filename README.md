@@ -1,6 +1,14 @@
 # Cairo-Metro-System
 A ticket reservation system for the Metro system of Cairo.
 
+## Initialization
+
+```
+cd frontend
+npm i --force
+npm start
+```
+
 ## Services
 https://github.com/AlHassanHK/Metro-User
 
