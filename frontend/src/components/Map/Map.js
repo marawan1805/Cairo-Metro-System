@@ -131,12 +131,12 @@ const Map = () => {
   const addLayerToMap = async (map) => {
     try {
       const stationsRes = await fetch(
-        "http://metro-admin-gray.vercel.app/api/admin/geoJSON"
+        "https://metro-admin-gray.vercel.app/api/admin/geoJSON"
       );
       const geoJsonStations = await stationsRes.json();
 
       const routesRes = await fetch(
-        "http://metro-admin-gray.vercel.app/api/admin/Routesgeojson"
+        "https://metro-admin-gray.vercel.app/api/admin/Routesgeojson"
       );
       const geoJsonRoutes = await routesRes.json();
 
