@@ -27,7 +27,6 @@
     "framer-motion": "^10.12.16",
     "leaflet": "^1.9.3",
     "mapbox-gl": "^2.14.1",
-    "postcss": "^7.0.39",
     "postcss-flexbugs-fixes": "^4.2.1",
     "postcss-import": "^15.1.0",
     "postcss-loader": "^4.2.0",
@@ -81,6 +80,7 @@
     ]
   },
   "devDependencies": {
+    "postcss": "^8.4.24",
     "postcss-preset-env": "^8.4.2"
   }
 }
