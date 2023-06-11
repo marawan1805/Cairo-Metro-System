@@ -23,8 +23,6 @@ const CheckoutComponent = ({ price }) => {
   const navigate = useNavigate();
 
   const onSubmit = async (values) => {
-    // Perform checkout operation
-    console.log(values);
     navigate("/payment/success");
   };
 
@@ -96,10 +94,7 @@ const CheckoutComponent = ({ price }) => {
                 />
               </div>
               <div>
-                <button
-                  type="submit"
-                  disabled={pristine || submitting}
-                >
+                <button type="submit" disabled={pristine || submitting}>
                   Pay ${price}
                 </button>
               </div>

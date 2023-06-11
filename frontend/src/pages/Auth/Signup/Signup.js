@@ -40,10 +40,9 @@ function Signup() {
   const navigate = useNavigate();
 
   const handleSignUp = async () => {
-
     setError(null);
-    if(password !== confirmPassword) {
-      setError('Passwords do not match');
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
       return;
     }
     try {
@@ -100,19 +99,19 @@ function Signup() {
           }),
         }
       );
-        const { data } = await response.json();
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-  
-          setTimeout(() => {
-            navigate("/", {
-              state: { dat: data },
-            });
-          }, 2000); // 2 seconds delay to read the success message
-        } else {
-          setError("Failed to fetch user data");
-        }
+      const { data } = await response.json();
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+
+        setTimeout(() => {
+          navigate("/", {
+            state: { dat: data },
+          });
+        }, 2000);
+      } else {
+        setError("Failed to fetch user data");
+      }
     } catch (error) {
       console.log(error.message);
     }
@@ -151,107 +150,109 @@ function Signup() {
                   <form>
                     {step === 1 ? (
                       <div>
-                    <div className="flex flex-wrap -mx-3 mb-4">
-                      <div className="w-full px-3">
-                        <label
-                          className="block text-gray-300 text-sm font-medium mb-1"
-                          htmlFor="phone"
-                        >
-                          Phone Number
-                        </label>
-                        <input
-                          className="form-input w-full text-gray-700"
-                          placeholder="Phone Number"
-                          value={phoneNumber}
-                          type="tel"
-                          onChange={(e) => setPhoneNumber(e.target.value)}
-                          required
-                        />
-                      </div>
-                      <div className="w-full px-3">
-                        <label
-                          className="block text-gray-300 text-sm font-medium mb-1"
-                          htmlFor="name"
-                        >
-                          Full Name
-                        </label>
-                        <input
-                          className="form-input w-full text-gray-700"
-                          placeholder="Full Name"
-                          value={name}
-                          type="text"
-                          onChange={(e) => setName(e.target.value)}
-                          required
-                        />
-                      </div>
-                      <div className="w-full px-3">
-                        <label
-                          className="block text-gray-300 text-sm font-medium mb-1"
-                          htmlFor="email"
-                        >
-                          Email
-                        </label>
-                        <input
-                          className="form-input w-full text-gray-700"
-                          placeholder="Email"
-                          value={email}
-                          type="email"
-                          onChange={(e) => setEmail(e.target.value)}
-                          required
-                        />
-                      </div>
-                      <div className="w-full px-3">
-                        <label
-                          className="block text-gray-300 text-sm font-medium mb-1"
-                          htmlFor="password"
-                        >
-                          Password
-                        </label>
-                        <input
-                          className="form-input w-full text-gray-700"
-                          placeholder="Password"
-                          value={password}
-                          type="password"
-                          onChange={(e) => setPassword(e.target.value)}
-                          required
-                        />
-                      </div>
-                      <div className="w-full px-3">
-                        <label
-                          className="block text-gray-300 text-sm font-medium mb-1"
-                          htmlFor="confirm-password"
-                        >
-                          Confirm Password
-                        </label>
-                        <input
-                          className="form-input w-full text-gray-700"
-                          placeholder="Confirm Password"
-                          value={confirmPassword}
-                          type="password"
-                          onChange={(e) => setConfirmPassword(e.target.value)}
-                          required
-                        />
-                      </div>
-                      <div className="w-full px-3">
-                        <label
-                          className="block text-gray-300 text-sm font-medium mb-1"
-                          htmlFor="national-id"
-                        >
-                          National ID
-                        </label>
-                        <input
-                          className="form-input w-full text-gray-700"
-                          placeholder="National ID"
-                          value={nationalId}
-                          type="text"
-                          onChange={(e) => setNationalId(e.target.value)}
-                          required
-                        />
-                      </div>
-                    </div>
-                    <div className="flex flex-wrap -mx-3 mt-6">
-                      <div className="w-full px-3">
-                      <button
+                        <div className="flex flex-wrap -mx-3 mb-4">
+                          <div className="w-full px-3">
+                            <label
+                              className="block text-gray-300 text-sm font-medium mb-1"
+                              htmlFor="phone"
+                            >
+                              Phone Number
+                            </label>
+                            <input
+                              className="form-input w-full text-gray-700"
+                              placeholder="Phone Number"
+                              value={phoneNumber}
+                              type="tel"
+                              onChange={(e) => setPhoneNumber(e.target.value)}
+                              required
+                            />
+                          </div>
+                          <div className="w-full px-3">
+                            <label
+                              className="block text-gray-300 text-sm font-medium mb-1"
+                              htmlFor="name"
+                            >
+                              Full Name
+                            </label>
+                            <input
+                              className="form-input w-full text-gray-700"
+                              placeholder="Full Name"
+                              value={name}
+                              type="text"
+                              onChange={(e) => setName(e.target.value)}
+                              required
+                            />
+                          </div>
+                          <div className="w-full px-3">
+                            <label
+                              className="block text-gray-300 text-sm font-medium mb-1"
+                              htmlFor="email"
+                            >
+                              Email
+                            </label>
+                            <input
+                              className="form-input w-full text-gray-700"
+                              placeholder="Email"
+                              value={email}
+                              type="email"
+                              onChange={(e) => setEmail(e.target.value)}
+                              required
+                            />
+                          </div>
+                          <div className="w-full px-3">
+                            <label
+                              className="block text-gray-300 text-sm font-medium mb-1"
+                              htmlFor="password"
+                            >
+                              Password
+                            </label>
+                            <input
+                              className="form-input w-full text-gray-700"
+                              placeholder="Password"
+                              value={password}
+                              type="password"
+                              onChange={(e) => setPassword(e.target.value)}
+                              required
+                            />
+                          </div>
+                          <div className="w-full px-3">
+                            <label
+                              className="block text-gray-300 text-sm font-medium mb-1"
+                              htmlFor="confirm-password"
+                            >
+                              Confirm Password
+                            </label>
+                            <input
+                              className="form-input w-full text-gray-700"
+                              placeholder="Confirm Password"
+                              value={confirmPassword}
+                              type="password"
+                              onChange={(e) =>
+                                setConfirmPassword(e.target.value)
+                              }
+                              required
+                            />
+                          </div>
+                          <div className="w-full px-3">
+                            <label
+                              className="block text-gray-300 text-sm font-medium mb-1"
+                              htmlFor="national-id"
+                            >
+                              National ID
+                            </label>
+                            <input
+                              className="form-input w-full text-gray-700"
+                              placeholder="National ID"
+                              value={nationalId}
+                              type="text"
+                              onChange={(e) => setNationalId(e.target.value)}
+                              required
+                            />
+                          </div>
+                        </div>
+                        <div className="flex flex-wrap -mx-3 mt-6">
+                          <div className="w-full px-3">
+                            <button
                               className="btn text-white bg-purple-600 hover:bg-purple-700 w-full"
                               onClick={async (event) => {
                                 event.preventDefault();
@@ -299,7 +300,7 @@ function Signup() {
                       </div>
                     )}
                   </form>
-                
+
                   <div className="text-gray-400 text-center mt-6">
                     Already have an account?{" "}
                     <Link

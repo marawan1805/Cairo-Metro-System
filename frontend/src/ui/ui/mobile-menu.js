@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useUser } from "../../Context/UserContext";
 import { createClient } from "@supabase/supabase-js";
 
@@ -11,7 +11,6 @@ export default function MobileMenu({ alwaysVisible }) {
   const trigger = useRef(null);
   const mobileNav = useRef(null);
 
-  // close the mobile menu on click outside
   useEffect(() => {
     const clickHandler = ({ target }) => {
       if (!mobileNav.current || !trigger.current) return;
@@ -27,7 +26,6 @@ export default function MobileMenu({ alwaysVisible }) {
     return () => document.removeEventListener("click", clickHandler);
   });
 
-  // close the mobile menu if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }) => {
       if (!mobileNavOpen || keyCode !== 27) return;
@@ -37,8 +35,6 @@ export default function MobileMenu({ alwaysVisible }) {
     return () => document.removeEventListener("keydown", keyHandler);
   });
 
-  const navigate = useNavigate();
-
   const SUPABASE_URL = "https://husogcjfubomhuycwuid.supabase.co";
   const SUPABASE_ANON_KEY =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh1c29nY2pmdWJvbWh1eWN3dWlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODI4NjA5NTUsImV4cCI6MTk5ODQzNjk1NX0.1W1T3X-SeDufh9AukM-TX34U01NP870I57W--eylN6w";
@@ -47,13 +43,9 @@ export default function MobileMenu({ alwaysVisible }) {
   const handleLogout = async () => {
     await supabase.auth.signOut();
 
-    // Clear user data from local storage
     localStorage.removeItem("user");
 
-    // Clear user from context
     setUser(null);
-
-    // navigate("/");
   };
   return (
     <div className={alwaysVisible ? "" : "md:hidden"}>
@@ -111,7 +103,7 @@ export default function MobileMenu({ alwaysVisible }) {
           </ul>
         ) : (
           <ul className="bg-gray-800 px-4 py-2">
-             <li>
+            <li>
               <Link
                 to="/"
                 className="flex font-medium w-full text-purple-600 hover:text-gray-200 py-2 justify-center"
@@ -147,7 +139,7 @@ export default function MobileMenu({ alwaysVisible }) {
                 Senior Request
               </Link>
             </li>
-           
+
             <li>
               <Link
                 to="/subscribe"

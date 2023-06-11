@@ -1,13 +1,20 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import MobileMenu from "./mobile-menu";
 import logo from "../../assets/logo.png";
 import { useUser } from "../../Context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { createClient } from "@supabase/supabase-js";
+import { useEffect } from "react";
 
 export default function Header() {
   const { user, setUser } = useUser();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      setUser(JSON.parse(localStorage.getItem("user")));
+    }
+  }, []);
 
   const SUPABASE_URL = "https://husogcjfubomhuycwuid.supabase.co";
   const SUPABASE_ANON_KEY =
@@ -17,13 +24,10 @@ export default function Header() {
   const handleLogout = async () => {
     await supabase.auth.signOut();
 
-    // Clear user data from local storage
     localStorage.removeItem("user");
 
-    // Clear user from context
     setUser(null);
 
-    // Redirect to home or any other page
     navigate("/");
   };
 

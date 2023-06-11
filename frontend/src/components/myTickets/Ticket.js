@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Ticket.css";
 import {
   Button,
@@ -7,7 +7,6 @@ import {
   Modal,
   TextField,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import { useUser } from "../../Context/UserContext";
 import Skeleton from "@mui/material/Skeleton";
 import Stack from "@mui/material/Stack";
@@ -54,12 +53,9 @@ const Ticket = ({ tripData }) => {
 
   const theme = createTheme({
     components: {
-      // Name of the component
       MuiButton: {
         styleOverrides: {
-          // Name of the slot
           root: {
-            // Some CSS
             backgroundColor: "grey",
             ":hover": {
               backgroundColor: "grey",
@@ -92,7 +88,7 @@ const Ticket = ({ tripData }) => {
     const data = await response.json();
     if (data.error) {
       toast.error(data.error);
-    } else if(response === "A refund request already exists for this trip.") {
+    } else if (response === "A refund request already exists for this trip.") {
       toast.error(response);
     } else {
       toast.success("Refund request sent successfully");
@@ -101,7 +97,7 @@ const Ticket = ({ tripData }) => {
 
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       <div
         id="cardContainer"
         style={{
@@ -216,6 +212,7 @@ const Ticket = ({ tripData }) => {
                   <img
                     id="barCode"
                     src="https://github.com/pizza3/asset/blob/master/barcode.png?raw=true"
+                    alt="barcode"
                   />
                 </div>
               </div>

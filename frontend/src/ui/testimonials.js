@@ -11,7 +11,8 @@ export default function Testimonials() {
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
             <h2 className="h2 mb-4">Don't take our word for it</h2>
             <p className="text-xl text-gray-400">
-            Hear from those who have experienced the convenience, efficiency, and comfort of Cairo Metro.
+              Hear from those who have experienced the convenience, efficiency,
+              and comfort of Cairo Metro.
             </p>
           </div>
 
@@ -41,7 +42,8 @@ export default function Testimonials() {
                 </div>
               </div>
               <blockquote className="text-lg text-gray-400 grow">
-              — Cairo Metro has made my daily commute a breeze. It's always on time and the stations are clean and well-maintained.
+                — Cairo Metro has made my daily commute a breeze. It's always on
+                time and the stations are clean and well-maintained.
               </blockquote>
               <div className="text-gray-700 font-medium mt-6 pt-5 border-t border-gray-700">
                 <cite className="text-gray-200 not-italic">Habiba Hassan</cite>{" "}
@@ -80,7 +82,9 @@ export default function Testimonials() {
                 </div>
               </div>
               <blockquote className="text-lg text-gray-400 grow">
-              — As a student, the affordability and convenience of Cairo Metro have been a game-changer. I can't imagine getting to my university any other way.
+                — As a student, the affordability and convenience of Cairo Metro
+                have been a game-changer. I can't imagine getting to my
+                university any other way.
               </blockquote>
               <div className="text-gray-700 font-medium mt-6 pt-5 border-t border-gray-700">
                 <cite className="text-gray-200 not-italic">Ahmed El-Masri</cite>{" "}
@@ -119,11 +123,11 @@ export default function Testimonials() {
                 </div>
               </div>
               <blockquote className="text-lg text-gray-400 grow">
-              — The Cairo Metro is a lifeline for our city. It's efficient, well-maintained, and the customer service is top-notch.
+                — The Cairo Metro is a lifeline for our city. It's efficient,
+                well-maintained, and the customer service is top-notch.
               </blockquote>
               <div className="text-gray-700 font-medium mt-6 pt-5 border-t border-gray-700">
-                <cite className="text-gray-200 not-italic">Saeed Allam</cite>{" "}
-                -{" "}
+                <cite className="text-gray-200 not-italic">Saeed Allam</cite> -{" "}
                 <a
                   className="text-purple-600 hover:text-gray-200 transition duration-150 ease-in-out"
                   href="#0"

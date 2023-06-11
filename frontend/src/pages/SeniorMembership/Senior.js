@@ -31,45 +31,50 @@ function Senior() {
     });
   });
 
- 
   const handleApply = async (event) => {
     event.preventDefault();
 
     if (user && idImage) {
-      const response = await fetch('https://metro-user.vercel.app/api/user/senior', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          // id should be uuid
-          id: Math.floor(Math.random() * 100000),
-          userId: user.id,
-          idImage,
-        }),
-      });
+      const response = await fetch(
+        "https://metro-user.vercel.app/api/user/senior",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: Math.floor(Math.random() * 100000),
+            userId: user.id,
+            idImage,
+          }),
+        }
+      );
       const data = await response.json();
       if (!data.error) {
-        toast.success('Senior request applied successfully!')
-        navigate('/');
+        toast.success("Senior request applied successfully!");
+        navigate("/");
       } else {
-        if(data.error.includes('Unique constraint failed on the fields: (`id`)') ||
-        data.error.includes('Unique constraint failed on the fields: (`userId`)')
+        if (
+          data.error.includes(
+            "Unique constraint failed on the fields: (`id`)"
+          ) ||
+          data.error.includes(
+            "Unique constraint failed on the fields: (`userId`)"
+          )
         ) {
-          toast.error('You already applied for a senior request!');
+          toast.error("You already applied for a senior request!");
         } else {
-          toast.error('Something went wrong!');
+          toast.error("Something went wrong!");
         }
       }
     } else {
-      toast.error('Please enter all the required fields!');
+      toast.error("Please enter all the required fields!");
     }
-  }
+  };
 
   const handleImageUpload = (url) => {
     setIdImage(url);
-  }
-
+  };
 
   return (
     <>
@@ -96,27 +101,23 @@ function Senior() {
             <div className="max-w-6xl mx-auto px-4 sm:px-6">
               <div className="pt-32 pb-12 md:pt-40 md:pb-20">
                 <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-                  <h1 className="h1">
-                    Apply for a Senior Request.
-                  </h1>
+                  <h1 className="h1">Apply for a Senior Request.</h1>
                 </div>
                 <div className="max-w-sm mx-auto">
                   <form>
-                   
                     <div className="flex flex-wrap -mx-3 mb-4">
-            <div className="w-full px-3">
-              <label
-                className="block text-gray-300 text-sm font-medium mb-1"
-                htmlFor="image"
-              >
-                ID Image
-              </label>
-              <ImageUpload onImageUpload={handleImageUpload} />
-            </div>
-          </div>
-                    
-                  
-                    { idImage ? (
+                      <div className="w-full px-3">
+                        <label
+                          className="block text-gray-300 text-sm font-medium mb-1"
+                          htmlFor="image"
+                        >
+                          ID Image
+                        </label>
+                        <ImageUpload onImageUpload={handleImageUpload} />
+                      </div>
+                    </div>
+
+                    {idImage ? (
                       <div className="flex flex-wrap -mx-3 mt-6">
                         <div className="w-full px-3">
                           <button
@@ -136,8 +137,6 @@ function Senior() {
                       </button>
                     )}
                   </form>
-
-                  
                 </div>
               </div>
             </div>

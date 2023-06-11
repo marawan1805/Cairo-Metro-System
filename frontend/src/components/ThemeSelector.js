@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { MapContext } from './Map/Map';
-import './ThemeSelector.css'; // add this line if you're using CSS modules
+import './ThemeSelector.css'; 
+
 const ThemeSelector = () => {
   const { setMapStyle } = useContext(MapContext);
 

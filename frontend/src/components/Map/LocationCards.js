@@ -7,7 +7,7 @@ const LocationCards = ({ startStation, endStation }) => {
   return (
     <div className="location-cards-container">
       <div className="location-card">
-      <img className="logo-img" src={purpleTrain} alt="Train" />
+        <img className="logo-img" src={purpleTrain} alt="Train" />
         {startStation ? (
           <p>{startStation.properties.stop_name}</p>
         ) : (
@@ -15,7 +15,7 @@ const LocationCards = ({ startStation, endStation }) => {
         )}
       </div>
       <div className="location-card">
-      <img className="logo-img"  src={orangeTrain} alt="Train" />
+        <img className="logo-img" src={orangeTrain} alt="Train" />
 
         {endStation ? (
           <p>{endStation.properties.stop_name}</p>

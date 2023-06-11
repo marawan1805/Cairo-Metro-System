@@ -22,13 +22,9 @@ function TicketsPage() {
   }, [user]);
 
   const rideListArray = Object.values(tripData);
-const amount = rideListArray.map((trip, i) => {
-  return <Ticket tripData={trip} key={i} />;
-});
-
-  
-
-
+  const amount = rideListArray.map((trip, i) => {
+    return <Ticket tripData={trip} key={i} />;
+  });
 
   return (
     <>

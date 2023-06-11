@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import "./index.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PageIllustration from "../../ui/page-illustration";
 import GoogleFontLoader from "react-google-font-loader";
 import { useEffect } from "react";
 import axios from "axios";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { GlobalStyle, StyledH1 } from "../../globalStyles.js";
-import Header from "../../ui/ui/header";
+import { GlobalStyle } from "../../globalStyles.js";
 import Card from "./Card";
 import {
   formatCreditCardNumber,
@@ -25,6 +24,7 @@ import { useLocation } from "react-router-dom";
 
 function Checkout() {
   const navigate = useNavigate();
+
   useEffect(() => {
     AOS.init({
       once: true,
@@ -33,6 +33,7 @@ function Checkout() {
       easing: "ease-out-sine",
     });
   });
+
   const [purchase, setPurchase] = React.useState(false);
   const [pop, setPop] = React.useState(true);
   const [error, setError] = React.useState("");
@@ -43,14 +44,11 @@ function Checkout() {
   const [startStation, setStartStation] = useState("");
   const [shortestPath, setShortestPath] = useState([]);
 
-  // if (localStorage.getItem("user")) {
-  //   setUser(JSON.parse(localStorage.getItem("user")));
-  // }
-
   const location = useLocation();
 
   const price = location.state.price;
 
+  // fetching passed ticket data from previous page
   useEffect(() => {
     if (location.state.subscription) {
       setSubscription(location.state.subscription);
@@ -70,16 +68,14 @@ function Checkout() {
     }
   }, [location]);
 
-  const SUPABASE_URL = "https://husogcjfubomhuycwuid.supabase.co";
-  const SUPABASE_ANON_KEY =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh1c29nY2pmdWJvbWh1eWN3dWlkIiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODI4NjA5NTUsImV4cCI6MTk5ODQzNjk1NX0.1W1T3X-SeDufh9AukM-TX34U01NP870I57W--eylN6w";
-  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
+  // desktop or mobile styling
   const isDesktop = useMediaQuery({
     query: "(min-aspect-ratio: 1/1)",
   });
+
   let logo = {};
   let fieldCSS = {};
+
   if (isDesktop) {
     logo = {
       height: "585px",
@@ -103,6 +99,7 @@ function Checkout() {
       width: "450px",
     };
   }
+
   var email = "";
   const total = price;
   if (user === null) {
@@ -110,6 +107,7 @@ function Checkout() {
   } else {
     email = user.email;
   }
+
   // start of stripe
 
   useEffect(() => {
@@ -156,8 +154,6 @@ function Checkout() {
                 uid: id,
               })
               .then((res) => {
-                //check if payment type is booking/subscription
-
                 if (subscription !== "") {
                   axios
                     .post("https://metro-user.vercel.app/api/user/subscribe", {
@@ -255,203 +251,200 @@ function Checkout() {
         <main className="grow">
           <PageIllustration />
           <section className="relative">
-          <div
-      className="flex flex-col items-center justify-center min-h-screen"
-      // Adjust the styles as needed
-      style={{ paddingTop: '80px', paddingBottom: '80px' }}
-    >
-            <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="pt-32 pb-12 md:pt-40 md:pb-20">
-                {/* Page header */}
-                <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-                  <h1 className="h1">Checkout</h1>
-                </div>
-                <div className="max-w-sm mx-auto">
-                  <Form
-                    onSubmit={onSubmit}
-                    render={({
-                      handleSubmit,
-                      form,
-                      submitting,
-                      pristine,
-                      values,
-                      active,
-                    }) => {
-                      return (
-                        <form style={logo}>
-                          <Card
-                            number={values.number || ""}
-                            name={values.name || ""}
-                            expiry={values.expiry || ""}
-                            cvc={values.cvc || ""}
-                            focused={active}
-                          />
-                          <div style={{ flexWrap: "wrap", width:"400px" }}>
-                            <Field
-                              style={fieldCSS}
-                              disabled={true}
-                              name="amount"
-                              component="input"
-                              type="text"
-                              placeholder={total}
+            <div
+              className="flex flex-col items-center justify-center min-h-screen"
+              style={{ paddingTop: "80px", paddingBottom: "80px" }}
+            >
+              <div className="max-w-6xl mx-auto px-4 sm:px-6">
+                <div className="pt-32 pb-12 md:pt-40 md:pb-20">
+                  {/* Page header */}
+                  <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
+                    <h1 className="h1">Checkout</h1>
+                  </div>
+                  <div className="max-w-sm mx-auto">
+                    <Form
+                      onSubmit={onSubmit}
+                      render={({
+                        handleSubmit,
+                        form,
+                        submitting,
+                        pristine,
+                        values,
+                        active,
+                      }) => {
+                        return (
+                          <form style={logo}>
+                            <Card
+                              number={values.number || ""}
+                              name={values.name || ""}
+                              expiry={values.expiry || ""}
+                              cvc={values.cvc || ""}
+                              focused={active}
                             />
-                            <Field
-                              style={fieldCSS}
-                              disabled={true}
-                              name="email"
-                              component="input"
-                              type="text"
-                              placeholder={email}
-                            />
-                          </div>
-                          <div style={{ flexWrap: "wrap", width:"400px" }}>
-                            <Field
-                              style={fieldCSS}
-                              name="number"
-                              component="input"
-                              type="text"
-                              pattern="[\d| ]{16,22}"
-                              placeholder="Card Number"
-                              format={formatCreditCardNumber}
-                              onBlur={(e) => {
-                                console.log(e);
-                                if (
-                                  e.target.value.length > 15 &&
-                                  !mapOfInputs.number
-                                ) {
-                                  const prev = { ...mapOfInputs };
-                                  prev.number = true;
-                                  setMapOfInputs(prev);
-                                }
-                              }}
-                            />
-                          </div>
-                          <div style={{ flexWrap: "wrap", width:"400px" }}>
-                            <Field
-                              style={fieldCSS}
-                              name="name"
-                              component="input"
-                              type="text"
-                              placeholder="Name"
-                              onBlur={(e) => {
-                                if (
-                                  e.target.value.length > 0 &&
-                                  !mapOfInputs.name
-                                ) {
-                                  const prev = { ...mapOfInputs };
-                                  prev.name = true;
-                                  setMapOfInputs(prev);
-                                }
-                              }}
-                            />
-                          </div>
-                          <div style={{ flexWrap: "wrap", width:"400px" }}>
-                            <Field
-                              style={fieldCSS}
-                              name="expiry"
-                              component="input"
-                              type="text"
-                              pattern="\d\d/\d\d"
-                              placeholder="Valid Thru"
-                              format={formatExpirationDate}
-                              onBlur={(e) => {
-                                if (
-                                  e.target.value.length > 2 &&
-                                  !mapOfInputs.expiry
-                                ) {
-                                  const prev = { ...mapOfInputs };
-                                  prev.expiry = true;
-                                  setMapOfInputs(prev);
-                                }
-                              }}
-                            />
-                            <Field
-                              style={fieldCSS}
-                              name="cvc"
-                              component="input"
-                              type="text"
-                              pattern="\d{3,4}"
-                              placeholder="CVC"
-                              format={formatCVC}
-                              onBlur={(e) => {
-                                if (
-                                  e.target.value.length > 2 &&
-                                  !mapOfInputs.cvc
-                                ) {
-                                  const prev = { ...mapOfInputs };
-                                  prev.cvc = true;
-                                  setMapOfInputs(prev);
-                                }
-                              }}
-                            />
-                          </div>
-
-                          <div className="buttons">
-                            {(!values.number ||
-                              !values.name ||
-                              !values.expiry ||
-                              !values.cvc) && (
-                              <button
-                                style={{
-                                  backgroundColor: "#c6c6c6",
-                                  //   borderRadius: "0.25rem",
-                                  //   paddingLeft: "2rem",
-                                  //   paddingRight: "2rem",
-                                  //   paddingTop: "0.75rem",
-                                  //   paddingBottom: "0.75rem",
-                                  //   fontWeight: "bold",
-                                  //   fontSize: "0.875rem",
-                                }}
+                            <div style={{ flexWrap: "wrap", width: "400px" }}>
+                              <Field
+                                style={fieldCSS}
                                 disabled={true}
-                                // onClick={handleClick}
-                              >
-                                Pay Now
-                              </button>
-                            )}
+                                name="amount"
+                                component="input"
+                                type="text"
+                                placeholder={total}
+                              />
+                              <Field
+                                style={fieldCSS}
+                                disabled={true}
+                                name="email"
+                                component="input"
+                                type="text"
+                                placeholder={email}
+                              />
+                            </div>
+                            <div style={{ flexWrap: "wrap", width: "400px" }}>
+                              <Field
+                                style={fieldCSS}
+                                name="number"
+                                component="input"
+                                type="text"
+                                pattern="[\d| ]{16,22}"
+                                placeholder="Card Number"
+                                format={formatCreditCardNumber}
+                                onBlur={(e) => {
+                                  console.log(e);
+                                  if (
+                                    e.target.value.length > 15 &&
+                                    !mapOfInputs.number
+                                  ) {
+                                    const prev = { ...mapOfInputs };
+                                    prev.number = true;
+                                    setMapOfInputs(prev);
+                                  }
+                                }}
+                              />
+                            </div>
+                            <div style={{ flexWrap: "wrap", width: "400px" }}>
+                              <Field
+                                style={fieldCSS}
+                                name="name"
+                                component="input"
+                                type="text"
+                                placeholder="Name"
+                                onBlur={(e) => {
+                                  if (
+                                    e.target.value.length > 0 &&
+                                    !mapOfInputs.name
+                                  ) {
+                                    const prev = { ...mapOfInputs };
+                                    prev.name = true;
+                                    setMapOfInputs(prev);
+                                  }
+                                }}
+                              />
+                            </div>
+                            <div style={{ flexWrap: "wrap", width: "400px" }}>
+                              <Field
+                                style={fieldCSS}
+                                name="expiry"
+                                component="input"
+                                type="text"
+                                pattern="\d\d/\d\d"
+                                placeholder="Valid Thru"
+                                format={formatExpirationDate}
+                                onBlur={(e) => {
+                                  if (
+                                    e.target.value.length > 2 &&
+                                    !mapOfInputs.expiry
+                                  ) {
+                                    const prev = { ...mapOfInputs };
+                                    prev.expiry = true;
+                                    setMapOfInputs(prev);
+                                  }
+                                }}
+                              />
+                              <Field
+                                style={fieldCSS}
+                                name="cvc"
+                                component="input"
+                                type="text"
+                                pattern="\d{3,4}"
+                                placeholder="CVC"
+                                format={formatCVC}
+                                onBlur={(e) => {
+                                  if (
+                                    e.target.value.length > 2 &&
+                                    !mapOfInputs.cvc
+                                  ) {
+                                    const prev = { ...mapOfInputs };
+                                    prev.cvc = true;
+                                    setMapOfInputs(prev);
+                                  }
+                                }}
+                              />
+                            </div>
 
-                            {!purchase ? (
-                              values.number &&
-                              values.name &&
-                              values.expiry &&
-                              values.cvc && (
+                            <div className="buttons">
+                              {(!values.number ||
+                                !values.name ||
+                                !values.expiry ||
+                                !values.cvc) && (
                                 <button
-                                  style={{ cursor: "pointer" }}
-                                  onClick={handleSubmit}
+                                  style={{
+                                    backgroundColor: "#c6c6c6",
+                                  }}
+                                  disabled={true}
                                 >
                                   Pay Now
                                 </button>
-                              )
-                            ) : (
-                              <ReactLoading type={"bubbles"} color="#6415ff" />
-                            )}
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setPurchase(false);
-                                form.reset();
-                              }}
-                            >
-                              Reset
-                            </button>
-                             <button
+                              )}
+
+                              {!purchase ? (
+                                values.number &&
+                                values.name &&
+                                values.expiry &&
+                                values.cvc && (
+                                  <button
+                                    style={{ cursor: "pointer" }}
+                                    onClick={handleSubmit}
+                                  >
+                                    Pay Now
+                                  </button>
+                                )
+                              ) : (
+                                <ReactLoading
+                                  type={"bubbles"}
+                                  color="#6415ff"
+                                />
+                              )}
+                              <button
                                 type="button"
-                                onClick={()=>navigate("/")}
+                                onClick={() => {
+                                  setPurchase(false);
+                                  form.reset();
+                                }}
+                              >
+                                Reset
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => navigate("/")}
                               >
                                 Cancel
                               </button>
-                            {loading && (
-                              <ReactLoading type={"bubbles"} color="#ff9999" />
-                            )}
-                          </div>
-                        </form>
-                      );
-                    }}
-                  />
+                              {loading && (
+                                <ReactLoading
+                                  type={"bubbles"}
+                                  color="#ff9999"
+                                />
+                              )}
+                            </div>
+                          </form>
+                        );
+                      }}
+                    />
 
-                  {error && <p className="text-red-600">{error}</p>}
+                    {error && <p className="text-red-600">{error}</p>}
+                  </div>
                 </div>
               </div>
-            </div>
             </div>
           </section>
         </main>

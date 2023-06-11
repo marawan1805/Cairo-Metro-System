@@ -38,7 +38,6 @@ function Login() {
   const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   const handleLogin = async (event) => {
-    // This will prevent the default form submission
     event.preventDefault();
 
     setError(null);
@@ -52,10 +51,8 @@ function Login() {
         position: toast.POSITION.TOP_CENTER,
       });
     } else {
-      // Optional: Show success message before redirect
       setError("Login successful! Redirecting...");
 
-      // Fetch user info from your custom users table
       const response = await fetch(
         `https://metro-user.vercel.app/api/user/${res.data.user.id}`,
         {
@@ -74,7 +71,6 @@ function Login() {
         });
       } else {
         const data = await response.json();
-        // Save user data to local storage if keepMeSignedIn is true
         if (keepMeSignedIn) {
           localStorage.setItem("user", JSON.stringify(data));
         }
@@ -83,14 +79,12 @@ function Login() {
         toast.success("Login successful! Redirecting...", {
           position: toast.POSITION.TOP_CENTER,
         });
-        const preLoginRoute = localStorage.getItem('preLoginRoute');
+        const preLoginRoute = localStorage.getItem("preLoginRoute");
 
-        // Clear the stored path
-        localStorage.removeItem('preLoginRoute');
-    
-        // Navigate user to their last visited page, or a default route
-        navigate(preLoginRoute || '/');  
-      } 
+        localStorage.removeItem("preLoginRoute");
+
+        navigate(preLoginRoute || "/");
+      }
     }
   };
 

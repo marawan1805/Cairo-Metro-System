@@ -1,5 +1,4 @@
 import "./Search.css";
-
 import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { StationContext } from "../../Context/StationContext";
@@ -50,9 +49,8 @@ const Search = ({ handleStationClick, handleSearchClick }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [showResults, setShowResults] = useState(false);
-
   const { allStations, fetchStations } = useContext(StationContext);
-  // console.log(allStations)
+  
   useEffect(() => {
     fetchStations();
   }, [fetchStations]);
@@ -72,14 +70,14 @@ const Search = ({ handleStationClick, handleSearchClick }) => {
     setSearchInput("");
     setShowResults(false);
 
-    // Parse coordinates from the geometry string
+    // Parsing coordinates from the geometry string
     let coordinates = station.geometry
       .replace("POINT (", "")
       .replace(")", "")
       .split(" ")
       .map(Number);
 
-    // Create a feature-like object to pass to handleStationClick
+    // Creating a feature-like object to pass to handleStationClick
     let feature = {
       _id: station._id,
       FID: station.FID,
@@ -124,7 +122,12 @@ const Search = ({ handleStationClick, handleSearchClick }) => {
         {showResults && (
           <div className="search-results">
             {searchResults.map((station) => (
-              <div key={station.id} onClick={() => {handleResultClick(station)}}>
+              <div
+                key={station.id}
+                onClick={() => {
+                  handleResultClick(station);
+                }}
+              >
                 {station.stop_name}
               </div>
             ))}

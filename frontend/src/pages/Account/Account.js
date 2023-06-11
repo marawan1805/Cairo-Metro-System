@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Button } from "@material-ui/core";
-import { createClient } from "@supabase/supabase-js";
 import { GlobalStyle } from "../../globalStyles";
 import Header from "../../ui/ui/header";
 import PageIllustration from "../../ui/page-illustration";
 import { ToastContainer, toast } from "react-toastify";
 import GoogleFontLoader from "react-google-font-loader";
-import { Link } from "react-router-dom";
 import { useUser } from "../../Context/UserContext";
 import { Typography, Paper, Box } from "@material-ui/core";
 
@@ -15,7 +13,6 @@ function AccountDetails() {
   const [subscriptions, setSubscriptions] = useState([]);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(null);
   const { user, setUser } = useUser();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -38,7 +35,9 @@ function AccountDetails() {
   };
 
   const fetchSubscriptions = async () => {
-    const response = await fetch(`https://metro-user.vercel.app/api/user/${user.id}/subscription`);
+    const response = await fetch(
+      `https://metro-user.vercel.app/api/user/${user.id}/subscription`
+    );
     const data = await response.json();
     console.log(data);
     setSubscriptions(data);
@@ -47,7 +46,6 @@ function AccountDetails() {
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
 
-    // Call your /api/user endpoint here with the updated information
     const response = await fetch("https://metro-user.vercel.app/api/user", {
       method: "PATCH",
       headers: {
@@ -65,16 +63,13 @@ function AccountDetails() {
 
     const data = await response.json();
     if (data.error) {
-      // Optional: Show error message
       toast.error(data.error, {
         position: toast.POSITION.TOP_CENTER,
       });
       return;
     } else {
-      // Update the user context with the new information
       setUser(data);
 
-      // Optional: Show success message
       toast.success("Profile updated successfully!", {
         position: toast.POSITION.TOP_CENTER,
       });
@@ -144,7 +139,7 @@ function AccountDetails() {
   );
   const handleBackToMain = () => {
     setView("main");
-};
+  };
   const renderEditProfile = () => (
     <>
       <ToastContainer />
@@ -170,14 +165,17 @@ function AccountDetails() {
             <div className="max-w-6xl mx-auto px-4 sm:px-6">
               <div className="pt-32 pb-12 md:pt-40 md:pb-20">
                 <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-              
                   <h1 className="h1">Edit Profile</h1>
-                  <div style={{height: "20px"}}></div>
-                  <Button variant="contained" color="secondary" onClick={handleBackToMain}>
-      Back
-    </Button>
+                  <div style={{ height: "20px" }}></div>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={handleBackToMain}
+                  >
+                    Back
+                  </Button>
                 </div>
-                
+
                 <div className="max-w-sm mx-auto">
                   <form onSubmit={handleUpdateProfile}>
                     <div className="flex flex-wrap -mx-3 mb-4">
@@ -217,7 +215,7 @@ function AccountDetails() {
                       </div>
                     </div>
 
-                       <div className="flex flex-wrap -mx-3 mb-4">
+                    <div className="flex flex-wrap -mx-3 mb-4">
                       <div className="w-full px-3">
                         <label
                           className="block text-gray-300 text-sm font-medium mb-1"
@@ -320,19 +318,23 @@ function AccountDetails() {
 
   const renderViewSubscriptions = () => {
     let daysLeft;
-  
+
     if (subscriptions && subscriptions.subscription) {
       const expiryDate = new Date(subscriptions.subscription.expiryDate);
       daysLeft = Math.floor((expiryDate - new Date()) / 86400000);
     }
-  
+
     return (
       <Paper elevation={3}>
         <Box p={3} textAlign="center">
           {subscriptions && subscriptions.subscription ? (
             <>
-              <Typography variant="h5">{subscriptions.subscription.id}</Typography>
-              <Typography variant="body1">{subscriptions.subscription.type}</Typography>
+              <Typography variant="h5">
+                {subscriptions.subscription.id}
+              </Typography>
+              <Typography variant="body1">
+                {subscriptions.subscription.type}
+              </Typography>
               <Typography variant="h4">Expires in:</Typography>
               <Typography variant="body2">{daysLeft} days</Typography>
             </>
@@ -340,7 +342,11 @@ function AccountDetails() {
             <Typography variant="h5">No subscriptions found</Typography>
           )}
           <Box mt={3}>
-            <Button variant="contained" color="secondary" onClick={handleBackToMain}>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={handleBackToMain}
+            >
               Back
             </Button>
           </Box>
