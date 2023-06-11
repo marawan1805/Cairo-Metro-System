@@ -99,18 +99,16 @@ function Signup() {
           }),
         }
       );
-      const { data } = await response.json();
-      if (response.ok) {
+      if (response.status !== 200) {
+        setError("Failed to fetch user data");
+      } else {
         const data = await response.json();
-        console.log(data);
 
         setTimeout(() => {
           navigate("/", {
             state: { dat: data },
           });
         }, 2000);
-      } else {
-        setError("Failed to fetch user data");
       }
     } catch (error) {
       console.log(error.message);
