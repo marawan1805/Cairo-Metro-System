@@ -16,7 +16,7 @@ npm start
 
 ### Test Login User
 ```
-phone number: +971553509605
+phone number: +971563509605
 pass: 123456
 ```
 note that only one user can register as we're using a trial Twilio account
