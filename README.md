@@ -1,6 +1,10 @@
 # Cairo-Metro-System
 A ticket reservation system for the Metro system of Cairo.
 
+![image](https://github.com/marawan1805/Cairo-Metro-System/assets/95961680/96b3a8ac-fd68-46f3-a686-e629dc14aea5)
+
+![image](https://github.com/marawan1805/Cairo-Metro-System/assets/95961680/ba267a22-9b09-4b77-9093-ddec684bdfa1)
+
 ## Admin
 https://metro-admin-dashboard.vercel.app
 
