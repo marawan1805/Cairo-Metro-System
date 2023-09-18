@@ -46,7 +46,7 @@ const CheckoutComponent = ({ price }) => {
           active,
         }) => {
           return (
-            <form onSubmit={handleSubmit}>
+            <form style={{alignItems: 'center', justifyContent:'center'}} onSubmit={handleSubmit}>
               <Card
                 number={values.number || ""}
                 name={values.name || ""}
@@ -54,7 +54,6 @@ const CheckoutComponent = ({ price }) => {
                 cvc={values.cvc || ""}
                 focused={active}
               />
-              <div style={{ flexWrap: "wrap" }}>
                 <Field
                   style={fieldCSS}
                   name="number"
@@ -64,8 +63,6 @@ const CheckoutComponent = ({ price }) => {
                   placeholder="Card Number"
                   format={formatCreditCardNumber}
                 />
-              </div>
-              <div style={{ flexWrap: "wrap" }}>
                 <Field
                   style={fieldCSS}
                   name="name"
@@ -73,8 +70,7 @@ const CheckoutComponent = ({ price }) => {
                   type="text"
                   placeholder="Name"
                 />
-              </div>
-              <div style={{ flexWrap: "wrap" }}>
+             
                 <Field
                   style={fieldCSS}
                   name="expiry"
@@ -93,7 +89,7 @@ const CheckoutComponent = ({ price }) => {
                   placeholder="CVC"
                   format={formatCVC}
                 />
-              </div>
+           
               <div>
                 <button type="submit" disabled={pristine || submitting}>
                   Pay ${price}
