@@ -36,6 +36,7 @@ const CheckoutComponent = ({ price }) => {
       }}
     >
       <Form
+      style={{width: 'auto', alignItems: 'center', justifyContent:'center'}}
         onSubmit={onSubmit}
         render={({
           handleSubmit,
@@ -54,6 +55,7 @@ const CheckoutComponent = ({ price }) => {
                 cvc={values.cvc || ""}
                 focused={active}
               />
+              <div style={{ marginLeft: "3.7em" }}>
                 <Field
                   style={fieldCSS}
                   name="number"
@@ -89,7 +91,7 @@ const CheckoutComponent = ({ price }) => {
                   placeholder="CVC"
                   format={formatCVC}
                 />
-           
+           </div>
               <div>
                 <button type="submit" disabled={pristine || submitting}>
                   Pay ${price}
