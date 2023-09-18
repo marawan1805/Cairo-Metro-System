@@ -1,0 +1,18 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "app.js",
+        "use": "@vercel/node"
+      }
+    ],  
+    "env": {
+      "STRIPE":"sk_test_51NGMdQFUpR2M3acGyKydVd3HKugHmD2QzgLZ7TTMaHtFttry97RxQ4h7Ni8kF9QBu9ShujXkBfymSiW3g02kvb7M00OBpkwbm2"
+    },
+    "routes": [{"handle": "filesystem"},
+      {
+        "src": "/.*",
+        "dest": "app.js"
+      }
+    ]
+  }

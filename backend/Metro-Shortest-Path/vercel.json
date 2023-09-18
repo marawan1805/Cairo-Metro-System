@@ -1,0 +1,18 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "shortestPath.js",
+        "use": "@vercel/node"
+      }
+    ],  
+    "env": {
+      "CONNECTION_STRING":"mongodb+srv://alhassan:p7OcHSJ3LRpJTgHz@stations.r5pneer.mongodb.net/stations?retryWrites=true&w=majority"
+    },
+    "routes": [{"handle": "filesystem"},
+      {
+        "src": "/.*",
+        "dest": "shortestPath.js"
+      }
+    ]
+  }

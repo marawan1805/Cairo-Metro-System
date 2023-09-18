@@ -272,7 +272,7 @@ const Map = () => {
 
     if (startStation && endStation) {
       const response = await fetch(
-        `https://18.133.171.80/shortest_path?startStation=${startStation.properties.stop_name}&endStation=${endStation.properties.stop_name}`
+        `https://metro-shortest-path.vercel.app/shortest_path?startStation=${startStation.properties.stop_name}&endStation=${endStation.properties.stop_name}`
       );
       const data = await response.json();
       setMiddleStations(data.path);
