@@ -53,7 +53,7 @@
   min-height: 40px;
   background-color: #f2d00d;
   margin: 0 20px;
-  margin-top: px;
+  margin-left: 10px;
   border-radius: 5px;
 }
 .station-card .divider-L2 {
@@ -62,7 +62,7 @@
   min-height: 40px;
   background-color: #e60f0d;
   margin: 0 20px;
-  margin-top: px;
+  margin-left: 10px;
   border-radius: 5px;
 }
 .station-card .divider-L3 {
@@ -71,7 +71,7 @@
   min-height: 40px;
   background-color: #0fbb0c;
   margin: 0 20px;
-  margin-top: px;
+  margin-left: 10px;
   border-radius: 5px;
 }
 
