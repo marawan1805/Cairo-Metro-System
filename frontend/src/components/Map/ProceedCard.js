@@ -8,7 +8,6 @@ import loc from "../../assets/loc.png";
 import { Card, List } from "@mui/material";
 
 const ProceedCard = ({ startStation, endStation, middleStations }) => {
-
   // Grouping stations by route id
   const stationsByRoute = middleStations.reduce((acc, station) => {
     if (!acc[station.routeId]) {
@@ -24,7 +23,7 @@ const ProceedCard = ({ startStation, endStation, middleStations }) => {
       acc[routeId] = false;
       return acc;
     },
-    {}
+    {},
   );
 
   const [expandedState, setExpandedState] = useState(initialExpandedState);
@@ -37,7 +36,7 @@ const ProceedCard = ({ startStation, endStation, middleStations }) => {
   };
 
   // Calculating total and estimated time for each stop
-  const totalStations = middleStations.length + 1; 
+  const totalStations = middleStations.length + 1;
   const totalTime = totalStations * 3;
 
   return (

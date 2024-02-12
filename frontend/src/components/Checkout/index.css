@@ -1,56 +1,55 @@
 .buttons button {
-    padding: 0.75rem 2rem;
-    border-radius: 0.25rem;
-    font-size: 0.875rem;
-    font-weight: bold;
-    margin-right: 10px;
-    cursor: pointer;
-  }
-  
-  button[disabled] {
-    background-color: #c6c6c6;
-  }
-  
-  button[type="button"] {
-    background-color: #6415ff;
-    color: white;
-  }
-  
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 100%;
-  }
-  
-  .signup-body{
-      display: flex;
-      flex-direction: column;
-      width: 100vw;
-      color: white;
-      align-items: center;
-      justify-content: center;
-  }
-  
-  .signup-modal{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      width: 50%;
-      border-radius: 25px;
-      padding: 30px;
-      background-color: rgba(36, 62, 99);
-      z-index: 2;
-  }
-  
-  .signup-form{
-      margin-top: 100px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 2;
-      width: 120%;
-      max-width: 500px;
-  }
-  
+  padding: 0.75rem 2rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: bold;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+button[disabled] {
+  background-color: #c6c6c6;
+}
+
+button[type="button"] {
+  background-color: #6415ff;
+  color: white;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.signup-body {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  color: white;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 50%;
+  border-radius: 25px;
+  padding: 30px;
+  background-color: rgba(36, 62, 99);
+  z-index: 2;
+}
+
+.signup-form {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  width: 120%;
+  max-width: 500px;
+}

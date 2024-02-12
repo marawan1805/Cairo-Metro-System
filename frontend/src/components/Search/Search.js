@@ -7,7 +7,9 @@ const SearchBoxStyled = styled.div`
   .search-box {
     border: 1px solid #ddd;
     border-radius: 40px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.08),
+      0 4px 12px rgba(0, 0, 0, 0.05);
     transition: box-shadow 0.2s ease;
     width: 300px;
     height: 50px;
@@ -50,7 +52,7 @@ const Search = ({ handleStationClick, handleSearchClick }) => {
   const [searchInput, setSearchInput] = useState("");
   const [showResults, setShowResults] = useState(false);
   const { allStations, fetchStations } = useContext(StationContext);
-  
+
   useEffect(() => {
     fetchStations();
   }, [fetchStations]);
@@ -60,7 +62,7 @@ const Search = ({ handleStationClick, handleSearchClick }) => {
     setSearchInput(event.target.value);
     setShowResults(true);
     const results = allStations.filter((station) =>
-      station.stop_name.toLowerCase().startsWith(query)
+      station.stop_name.toLowerCase().startsWith(query),
     );
     setSearchResults(results);
   };

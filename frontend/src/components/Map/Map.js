@@ -1,9 +1,4 @@
-import React, {
-  useRef,
-  useEffect,
-  useState,
-  createContext,
-} from "react";
+import React, { useRef, useEffect, useState, createContext } from "react";
 import mapboxgl from "mapbox-gl";
 import "./Map.css";
 import ThemeSelector from "../ThemeSelector";
@@ -20,7 +15,8 @@ import { useUser } from "../../Context/UserContext";
 import { List, ListItem, ListItemText } from "@mui/material";
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
-mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
+mapboxgl.workerClass =
+  require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 mapboxgl.accessToken =
   "pk.eyJ1IjoibWFyYXdhbjE4MDUiLCJhIjoiY2xoN2tlaXc2MGg4MDNlczZlNjl1cGlvbiJ9.z1IvnyHR-Uo83BIeuuIZBQ";
 
@@ -36,7 +32,7 @@ const Map = () => {
   const [price, setPrice] = useState(0);
   const [mapStyle, setMapStyle] = useState(
     localStorage.getItem("selectedTheme") ||
-      "mapbox://styles/marawan1805/clh7obmkt00ph01qt3fz40g7g"
+      "mapbox://styles/marawan1805/clh7obmkt00ph01qt3fz40g7g",
   );
   const [middleStations, setMiddleStations] = useState([]);
   const [shortestPath, setShortestPath] = useState([]);
@@ -112,12 +108,12 @@ const Map = () => {
   const addLayerToMap = async (map) => {
     try {
       const stationsRes = await fetch(
-        "https://metro-admin-gray.vercel.app/api/admin/geoJSON"
+        "https://metro-admin-gray.vercel.app/api/admin/geoJSON",
       );
       const geoJsonStations = await stationsRes.json();
 
       const routesRes = await fetch(
-        "https://metro-admin-gray.vercel.app/api/admin/Routesgeojson"
+        "https://metro-admin-gray.vercel.app/api/admin/Routesgeojson",
       );
       const geoJsonRoutes = await routesRes.json();
 
@@ -272,7 +268,7 @@ const Map = () => {
 
     if (startStation && endStation) {
       const response = await fetch(
-        `https://metro-shortest-path.vercel.app/shortest_path?startStation=${startStation.properties.stop_name}&endStation=${endStation.properties.stop_name}`
+        `https://metro-shortest-path.vercel.app/shortest_path?startStation=${startStation.properties.stop_name}&endStation=${endStation.properties.stop_name}`,
       );
       const data = await response.json();
       setMiddleStations(data.path);
@@ -282,7 +278,7 @@ const Map = () => {
           geometry: {
             coordinates: station.routePoints,
           },
-        }))
+        })),
       );
 
       const price = calculatePrice(data.path.length);
@@ -382,7 +378,7 @@ const Map = () => {
           ["==", ["get", "stop_id"], endStation?.properties?.stop_id],
           10,
           5,
-        ]
+        ],
       );
 
       const stationToFlyTo = startStation || endStation;

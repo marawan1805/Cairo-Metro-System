@@ -97,7 +97,7 @@ function Signup() {
             password: password,
             nationalId: parseInt(nationalId),
           }),
-        }
+        },
       );
       if (response.status !== 200) {
         setError("Failed to fetch user data");

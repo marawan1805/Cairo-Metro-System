@@ -36,7 +36,7 @@ function AccountDetails() {
 
   const fetchSubscriptions = async () => {
     const response = await fetch(
-      `https://metro-user.vercel.app/api/user/${user.id}/subscription`
+      `https://metro-user.vercel.app/api/user/${user.id}/subscription`,
     );
     const data = await response.json();
     console.log(data);

@@ -119,7 +119,7 @@ function Checkout() {
       s.src = "https://js.stripe.com/v2/";
       s.onload = () => {
         window["Stripe"].setPublishableKey(
-          "pk_test_51NGMdQFUpR2M3acGG09EDohgOkiWklC2SjbCF9RkO6EZYAyMH5zJ4kHT9OxkTiFZ7GVZSt3VNFU1IegUTs1Gc6XK00kA9GHLVh"
+          "pk_test_51NGMdQFUpR2M3acGG09EDohgOkiWklC2SjbCF9RkO6EZYAyMH5zJ4kHT9OxkTiFZ7GVZSt3VNFU1IegUTs1Gc6XK00kA9GHLVh",
         );
       };
       window.document.body.appendChild(s);
@@ -219,7 +219,7 @@ function Checkout() {
             setPop(false);
             setError(response.error.message);
           }
-        }
+        },
       );
     } catch (error) {
       setPurchase(false);

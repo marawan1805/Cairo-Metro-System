@@ -36,7 +36,11 @@ const CheckoutComponent = ({ price }) => {
       }}
     >
       <Form
-      style={{width: 'auto', alignItems: 'center', justifyContent:'center'}}
+        style={{
+          width: "auto",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
         onSubmit={onSubmit}
         render={({
           handleSubmit,
@@ -47,7 +51,10 @@ const CheckoutComponent = ({ price }) => {
           active,
         }) => {
           return (
-            <form style={{alignItems: 'center', justifyContent:'center'}} onSubmit={handleSubmit}>
+            <form
+              style={{ alignItems: "center", justifyContent: "center" }}
+              onSubmit={handleSubmit}
+            >
               <Card
                 number={values.number || ""}
                 name={values.name || ""}
@@ -72,7 +79,7 @@ const CheckoutComponent = ({ price }) => {
                   type="text"
                   placeholder="Name"
                 />
-             
+
                 <Field
                   style={fieldCSS}
                   name="expiry"
@@ -91,7 +98,7 @@ const CheckoutComponent = ({ price }) => {
                   placeholder="CVC"
                   format={formatCVC}
                 />
-           </div>
+              </div>
               <div>
                 <button type="submit" disabled={pristine || submitting}>
                   Pay ${price}

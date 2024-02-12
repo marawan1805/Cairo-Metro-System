@@ -61,7 +61,7 @@ function Login() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${res.data.session.access_token}`,
           },
-        }
+        },
       );
 
       if (response.error) {

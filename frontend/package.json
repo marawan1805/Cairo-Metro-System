@@ -32,6 +32,7 @@
     "postcss-flexbugs-fixes": "^4.2.1",
     "postcss-import": "^15.1.0",
     "postcss-loader": "^4.2.0",
+    "prettier": "^3.2.5",
     "react": "^18.2.0",
     "react-credit-cards-2": "^1.0.1",
     "react-dom": "^18.2.0",
@@ -64,7 +65,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build:css": "postcss ./src/styles/index.css -o ./dist/styles.css"
+    "build:css": "postcss ./src/styles/index.css -o ./dist/styles.css",
+    "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json,css,scss}\""
   },
   "eslintConfig": {
     "extends": [

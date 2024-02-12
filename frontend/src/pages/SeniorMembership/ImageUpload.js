@@ -15,7 +15,7 @@ function ImageUpload({ onImageUpload }) {
           // replace 'your-cloud-name' with your cloud name
           method: "POST",
           body: formData,
-        }
+        },
       );
 
       if (response.ok) {

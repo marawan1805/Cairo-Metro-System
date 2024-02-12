@@ -47,7 +47,7 @@ function Senior() {
             userId: user.id,
             idImage,
           }),
-        }
+        },
       );
       const data = await response.json();
       if (!data.error) {
@@ -56,10 +56,10 @@ function Senior() {
       } else {
         if (
           data.error.includes(
-            "Unique constraint failed on the fields: (`id`)"
+            "Unique constraint failed on the fields: (`id`)",
           ) ||
           data.error.includes(
-            "Unique constraint failed on the fields: (`userId`)"
+            "Unique constraint failed on the fields: (`userId`)",
           )
         ) {
           toast.error("You already applied for a senior request!");

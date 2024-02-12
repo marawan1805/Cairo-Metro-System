@@ -35,7 +35,6 @@
 .station-card.exit-card .divi {
   width: 10px;
   height: 100px;
-  margin: 0 20px;
 }
 .estimated-time {
   font-size: 14px;
@@ -49,7 +48,7 @@
 }
 .station-card .divider-L1 {
   width: 8px;
-  height: 80px;
+  height: 100%;
   min-height: 40px;
   background-color: #f2d00d;
   margin: 0 20px;
@@ -58,7 +57,7 @@
 }
 .station-card .divider-L2 {
   width: 8px;
-  height: 80px;
+  height: 100%;
   min-height: 40px;
   background-color: #e60f0d;
   margin: 0 20px;
@@ -67,12 +66,13 @@
 }
 .station-card .divider-L3 {
   width: 8px;
-  height: 80px;
+  height: 100%;
   min-height: 40px;
   background-color: #0fbb0c;
   margin: 0 20px;
   margin-left: 10px;
   border-radius: 5px;
+  z-index: 1;
 }
 
 .station-card .right-side {
@@ -123,6 +123,7 @@
 .station-card.exit-card .right-side {
   margin-top: 40px;
   margin-bottom: 20px;
+  margin-left: 20px;
 }
 
 .station-card.exit-card .left-side {
@@ -130,7 +131,6 @@
   align-items: center;
   justify-content: flex-end;
   margin-top: 40px;
-  margin-right: -10px;
 }
 
 .station-card.exit-card .left-side img {
@@ -145,7 +145,9 @@
   width: 250px;
   display: grid;
   grid-template-columns: 1fr 3fr;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.24);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   justify-content: center;
   align-items: center;
